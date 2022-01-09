@@ -1,0 +1,28 @@
+/* 
+    Created on : 4 ene. 2022, 01:03:29
+    Author     : rsgar
+*/
+
+.root {
+    -fx-background-color:#F0FFF0;
+    -fx-font-size:30;
+}
+
+.button {
+    -fx-background-color:#7FFFD4;
+    -fx-text-fill:#ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10em;
+}
+
+.button:hover{
+    -fx-background-color:#00FFFF;
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 10em;
+}
+
+.button:pressed{
+    -fx-background-color:#008B8B;
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 10em;
+}

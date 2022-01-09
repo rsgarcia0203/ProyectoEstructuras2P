@@ -1,0 +1,60 @@
+/* 
+    Created on : 8 ene. 2022, 14:13:21
+    Author     : rsgar
+*/
+
+.pane {
+    -fx-background-color:#F0FFF0;
+    -fx-font-size:22;
+}
+
+.border{
+    -fx-background-color: #D3D3D3;
+}
+
+.bgpanel{
+    -fx-background-color: darkgrey;
+}
+
+.label{
+    -fx-font-size:24;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.opane{
+    -fx-background-color: #696969;
+    -fx-background-radius: 1em;
+}
+
+.btn1{
+    -fx-background-color:#008000;
+    -fx-text-fill:#ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6em;
+    -fx-font-size:22;
+}
+
+.btn1:hover{
+    -fx-background-color:#6B8E23;
+}
+
+.btn1:pressed{
+    -fx-background-color:#556B2F;
+}
+
+.btn2{
+    -fx-background-color:#FF0000;
+    -fx-text-fill:#ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6em;   
+    -fx-font-size:22;
+}
+
+.btn2:hover{
+    -fx-background-color:#FF4500;
+}
+
+.btn2:pressed{
+    -fx-background-color:#B22222;
+}

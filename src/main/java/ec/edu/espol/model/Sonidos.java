@@ -19,7 +19,7 @@ import javafx.util.Duration;
  */
 public abstract class Sonidos {
      
-    public void playBGMusic() {
+    public static void playBGMusic() {
 
         String path = "src/main/resources/ec/edu/espol/sounds/bg_music.mp3";
         Media sound = new Media(new File(path).toURI().toString());
@@ -59,7 +59,16 @@ public abstract class Sonidos {
         mediaPlayer.setVolume(0.15);
         mediaPlayer.play();
     }
+    
+    public static void hover(){
+        
+        Media sound = new Media(new File("src/main/resources/ec/edu/espol/sounds/hover.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(0.15);
+        mediaPlayer.play();
 
+    }
+    
     public static void back() {
 
         Media sound = new Media(new File("src/main/resources/ec/edu/espol/sounds/click_back.mp3").toURI().toString());

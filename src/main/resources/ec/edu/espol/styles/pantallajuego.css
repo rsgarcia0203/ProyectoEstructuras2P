@@ -1,0 +1,14 @@
+/* 
+    Created on : 7 ene. 2022, 13:30:06
+    Author     : rsgar
+*/
+
+
+.pane {
+    -fx-background-color:#F0FFF0;
+    -fx-font-size:30;
+}
+
+.border{
+    -fx-background-color: #D3D3D3;
+}

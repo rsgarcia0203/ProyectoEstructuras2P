@@ -1,2 +1,4 @@
 module-info.class
 ec\edu\espol\model\Jugador.class
+ec\edu\espol\controller\PantallaJuegoController.class
+ec\edu\espol\model\Tablero.class

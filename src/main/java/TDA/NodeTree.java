@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TDA;
 
 import java.util.LinkedList;
@@ -10,36 +5,33 @@ import java.util.LinkedList;
 /**
  *
  * @author rsgar
- * @param <E>
+ * @param <T>
  */
-public class NodeTree<E> {
+public class NodeTree<T> {
     
-    private E content;
-    private LinkedList<Tree<E>> children;
+    private T content;
+    private LinkedList<Tree<T>> children;
     // NO EN ESTE CURSO: private LinkedList<NodeTree<E>> children;
 
-    public NodeTree(E content) {
+    public NodeTree(T content) {
         this.content = content;
         this.children = new LinkedList<>();
     }
 
-    public E getContent() {
-        return content;
+    public T getContent() {
+        return this.content;
     }
 
-    public void setContent(E content) {
+    public void setContent(T content) {
         this.content = content;
     }
 
-    public LinkedList<Tree<E>> getChildren() {
-        return children;
+    public LinkedList<Tree<T>> getChildren() {
+        return this.children;
     }
 
-    public void setChildren(LinkedList<Tree<E>> children) {
+    public void setChildren(LinkedList<Tree<T>> children) {
         this.children = children;
     }
-    
-    
-    
-    
+
 }

@@ -11,4 +11,34 @@ package ec.edu.espol.model;
  */
 public class Tablero {
     
+    private final int casillas = 9;
+    private int casillasVacias;
+    private int casillasLlenas;
+
+    public Tablero(int casillasVacias, int casillasLlenas) throws Exception{
+        if(casillasVacias > this.casillas) {this.casillasVacias = casillasVacias;}
+        else{throw new Exception("");}
+        
+        if(casillasLlenas > this.casillas) {this.casillasLlenas = casillasLlenas;}
+        else{throw new Exception("");}
+    }
+
+    public int getCasillasVacias() {
+        return casillasVacias;
+    }
+
+    public void setCasillasVacias(int casillasVacias) {
+        this.casillasVacias = casillasVacias;
+    }
+
+    public int getCasillasLlenas() {
+        return casillasLlenas;
+    }
+
+    public void setCasillasLlenas(int casillasLlenas) {
+        this.casillasLlenas = casillasLlenas;
+    }
+    
+    
+    
 }

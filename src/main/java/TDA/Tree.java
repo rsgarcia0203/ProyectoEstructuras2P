@@ -316,11 +316,11 @@ public class Tree<T> {
         return count;
     }
     
-    public void insert(NodeTree nt){
+    public void insert(NodeTree nt, T content){
         
     }
     
-    public void delete(NodeTree nt){
+    public void delete(T content){
         
     }
     

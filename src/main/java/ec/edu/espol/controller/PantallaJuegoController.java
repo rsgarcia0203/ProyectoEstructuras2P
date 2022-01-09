@@ -126,5 +126,23 @@ public class PantallaJuegoController implements Initializable {
         back_btn.setEffect(new InnerShadow());
         back_btn.setOpacity(0.55);
     }
+
+    @FXML
+    private void mouseClicked(MouseEvent event) {
+        
+    }
+
+    @FXML
+    private void mouseNotHover(MouseEvent event) {
+    }
+
+    @FXML
+    private void mouseHover(MouseEvent event) {
+        
+    }
+
+    @FXML
+    private void mouseClick(MouseEvent event) {
+    }
     
 }

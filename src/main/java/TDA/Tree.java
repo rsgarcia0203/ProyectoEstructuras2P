@@ -23,8 +23,8 @@ import java.util.Stack;
  * @author rsgar
  * @param <T>
  */
-public class Tree<T> {
-    
+public class Tree<T> implements Comparable<Tree<T>> {
+
     // insertar, eliminar, localizar elementos
     // recorrer un arbol 
     private NodeTree<T> root;
@@ -37,7 +37,7 @@ public class Tree<T> {
         this.root = root;
     }
 
-    public NodeTree getRoot() {
+    public NodeTree<T> getRoot() {
         return root;
     }
 
@@ -62,7 +62,7 @@ public class Tree<T> {
         if (isEmpty()) {
             return 0;
         }
-        
+
         if (isLeaf()) {
             return 1;
         }
@@ -71,115 +71,129 @@ public class Tree<T> {
 
         if (hasChildrens()) {
             maxLevel++;
-                        
-            for(Tree<T> tree: this.root.getChildren()){
-                
-                if(tree.hasChildrens()){
+
+            for (Tree<T> tree : this.root.getChildren()) {
+
+                if (tree.hasChildrens()) {
                     maxLevel = tree.countLevels();
-                }            
-            }         
+                }
+            }
         }
 
         return 1 + maxLevel;
 
     }
 
-    public NodeTree<T> recursiveSearch(T content, Comparator<T> cmp) {
+    public NodeTree<T> recursiveSearch(T content, Comparator<T> cmp) throws EmptyTreeException {
         if (this.isEmpty()) {
-            return null;
+            throw new EmptyTreeException("");
         } else {
-            
+
             if (cmp.compare(this.root.getContent(), content) == 0) {
                 return this.root;
             } else {
                 NodeTree<T> tmp = null;
-                
+
                 if (this.root.getChildren().isEmpty()) {
                     return tmp;
                 } else {
-                   
-                    for(Tree<T> tree: this.root.getChildren()){
-                        
-                        if(cmp.compare(tree.getRoot().getContent(), content) == 0){
-                            
+
+                    for (Tree<T> tree : this.root.getChildren()) {
+
+                        T contentTree = tree.getRoot().getContent();
+                        if (cmp.compare(contentTree, content) == 0) {
+                            tmp = tree.getRoot();
                         }
                     }
                 }
-                
-                
+
                 return tmp;
             }
         }
     }
 
-    public NodeTree<T> iterativeSearch(T content, Comparator<T> cmp) {
+    public NodeTree<T> iterativeSearch(T content, Comparator<T> cmp) throws EmptyTreeException {
 
         Stack<Tree<T>> stack = new Stack();
+
         if (this.isEmpty()) {
-            return null;
+            throw new EmptyTreeException("");
         } else {
             stack.push(this);
             NodeTree<T> search = null;
+
             while (!stack.isEmpty()) {
+
                 Tree<T> subtree = stack.pop();
-                if (cmp.compare(subtree.getRoot().getContent(), content) == 0) {
+                T contentTree = subtree.getRoot().getContent();
+
+                if (cmp.compare(contentTree, content) == 0) {
                     search = subtree.getRoot();
                 }
-                if (subtree.getLeft() != null) {
-                    stack.push(subtree.getLeft());
+
+                if (subtree.hasChildrens()) {
+
+                    for (Tree tree : subtree.getRoot().getChildren()) {
+                        stack.push(tree);
+                    }
                 }
-                if (subtree.getRight() != null) {
-                    stack.push(subtree.getRight());
-                }
+
             }
             return search;
         }
 
     }
 
-    public NodeTree<T> recursiveGetMin(Comparator<T> cmp) {
+    //revisar
+    public NodeTree<T> recursiveGetMin(Comparator<T> cmp) throws EmptyTreeException {
+
         if (this.isEmpty()) {
-            return null;
+            throw new EmptyTreeException("");
         } else if (this.isLeaf()) {
             return root;
         } else {
 
             //NodeTree<T> rightMin = this.getRight().recursiveGetMin(cmp);
             NodeTree<T> minChild = null;
-            if (cmp.compare(leftMin.getContent(), rightMin.getContent()) < 0) {
-                minChild = leftMin;
-            } else {
-                minChild = rightMin;
-            }
-            return cmp.compare(minChild.getContent(), root.getContent()) < 0 ? minChild : root;
 
+            if (this.hasChildrens()) {
+
+                for (Tree subtree : this.root.getChildren()) {
+                    minChild = subtree.recursiveGetMin(cmp);
+                }
+
+            }
+
+            return cmp.compare(minChild.getContent(), root.getContent()) < 0 ? minChild : root;
         }
     }
 
-    public NodeTree<T> iterativeGetMin(Comparator<T> cmp) {
+    public NodeTree<T> iterativeGetMin(Comparator<T> cmp) throws EmptyTreeException {
 
         if (this.isEmpty()) {
-            return null;
+            throw new EmptyTreeException("");
         }
 
-        Stack<Tree<T>> tree = new Stack();
-        tree.push(this);
+        Stack<Tree<T>> stack = new Stack();
+        stack.push(this);
         NodeTree<T> minimal = root;
 
-        while (!tree.isEmpty()) {
+        while (!stack.isEmpty()) {
 
-            Tree<T> subtree = tree.pop();
-            if (cmp.compare(subtree.getRoot().getContent(), minimal.getContent()) < 0) {
+            Tree<T> subtree = stack.pop();
+            T content = (T) subtree.getRoot().getContent();
+
+            if (cmp.compare(content, minimal.getContent()) < 0) {
                 minimal = subtree.getRoot();
             }
 
-            if (subtree.getLeft() != null) {
-                tree.push(subtree.getLeft());
-            }
-            if (subtree.getRight() != null) {
-                tree.push(subtree.getRight());
-            }
+            if (subtree.hasChildrens()) {
 
+                for (Tree tree : this.root.getChildren()) {
+                    stack.push(tree);
+                }
+
+            }
         }
 
         return minimal;
@@ -190,64 +204,77 @@ public class Tree<T> {
         if (this.isEmpty() || this.isLeaf()) {
             return 0;
         } else {
-            int leftDescendants = 0;
-            int rightDescendants = 0;
+            int descendants = 0;
 
-            if (this.getLeft() != null) {
-                leftDescendants = 1 + this.getLeft().recursiveCountDescendants();
-            }
-            if (this.getRight() != null) {
-                rightDescendants = 1 + this.getRight().recursiveCountDescendants();
+            if (this.hasChildrens()) {
+
+                for (Tree subtree : this.root.getChildren()) {
+
+                    if (subtree.hasChildrens()) {
+                        descendants += subtree.recursiveCountDescendants();
+                    } else {
+                        descendants++;
+                    }
+
+                }
+
             }
 
-            return leftDescendants + rightDescendants;
+            return descendants;
         }
     }
 
     public int iterativeCountDescendants() {
+
         Stack<Tree<T>> stack = new Stack();
         int count = 0;
+
         if (this.isEmpty()) {
             return count;
         } else {
             stack.push(this);
+
             while (!stack.empty()) {
                 Tree<T> subtree = stack.pop();
 
-                if (subtree.getLeft() != null) {
-                    stack.push(subtree.getLeft());
-                    count++;
-                }
-                if (subtree.getRight() != null) {
-                    stack.push(subtree.getRight());
-                    count++;
+                if (subtree.hasChildrens()) {
+
+                    for (Tree tree : this.root.getChildren()) {
+                        stack.push(tree);
+                    }
+
                 }
             }
         }
+
         return count;
     }
 
-    public Tree<T> findParent(NodeTree<T> nodo) {
+    public Tree<T> findParent(T content) throws EmptyTreeException, ParentException {
+
         if (this.isEmpty()) {
-            return null;
+            throw new EmptyTreeException("");
         } else if (this.isLeaf()) {
-            return null;
+            throw new ParentException("");
         } else {
             Tree<T> padre = null;
-            if (this.root.getLeft() != null) {
-                if (!this.root.equals(nodo)) {
-                    padre = this.root.getLeft().findParent(nodo);
-                } else {
-                    padre = this;
+
+            if (this.hasChildrens()) {
+
+                for (Tree subtree : this.root.getChildren()) {
+
+                    if (subtree.hasChildrens()) {
+                        padre = subtree.findParent(content);
+                    } else {
+
+                        if (subtree.getRoot().getContent().equals(content)) {
+                            padre = this;
+                        }
+
+                    }
                 }
             }
-            if (this.root.getRight() != null) {
-                if (!this.root.equals(nodo)) {
-                    padre = this.root.getRight().findParent(nodo);
-                } else {
-                    padre = this;
-                }
-            }
+
             return padre;
         }
     }
@@ -259,14 +286,16 @@ public class Tree<T> {
         } else if (this.isLeaf() && otherTree.isLeaf()) {
             return this.root.equals(otherTree.getRoot());
         } else {
-            if (this.root.getLeft() != null && otherTree.getRoot().getLeft() != null) {
-                this.root.getLeft().isIdentical(otherTree.getRoot().getLeft());
-            } else {
-                return false;
-            }
+            if (this.hasChildrens() && otherTree.hasChildrens()) {
 
-            if (this.root.getRight() != null && otherTree.getRoot().getRight() != null) {
-                this.root.getRight().isIdentical(otherTree.getRoot().getRight());
+                for (Tree tree : this.root.getChildren()) {
+
+                    if (!otherTree.getRoot().getChildren().contains(tree)) {
+                        return false;
+                    }
+
+                }
+
             } else {
                 return false;
             }
@@ -275,7 +304,7 @@ public class Tree<T> {
         }
     }
 
-    public void largestValueOfEachLevel(Comparator<T> cmp) throws Exception {
+    /*public void largestValueOfEachLevel(Comparator<T> cmp) throws Exception {
         if (this.isEmpty()) {
             throw new Exception("...");
         } else if (this.isLeaf()) {
@@ -305,38 +334,102 @@ public class Tree<T> {
             }
 
         }
-    }
-
+    } 
+     */
     public int countNodesWithOnlyChild() {
+
         Stack<Tree<T>> stack = new Stack();
         int count = 0;
-        if (this.isEmpty()) {
+
+        if (this.isEmpty() || this.isLeaf()) {
             return count;
         } else {
             stack.push(this);
+
             while (!stack.empty()) {
                 Tree<T> subtree = stack.pop();
 
-                if (subtree.getLeft() != null && subtree.getRight() == null) {
-                    stack.push(subtree.getLeft());
-                    count++;
+                if (subtree.hasChildrens()) {
+
+                    for (Tree tree : subtree.getRoot().getChildren()) {
+                        stack.push(tree);
+                    }
                 }
 
-                if (subtree.getRight() != null && subtree.getLeft() == null) {
-                    stack.push(subtree.getRight());
+                if (subtree.getRoot().getChildren().size() == 1) {
                     count++;
                 }
             }
         }
         return count;
     }
-    
-    public void insert(NodeTree nt, T content){
-        
+
+    public void insert(NodeTree nt, T content) {
+
+        if (this.isEmpty()) {
+            this.root = new NodeTree(content);
+        } else if (this.isLeaf()) {
+            this.root.getChildren().add(new Tree(new NodeTree(content)));
+        } else {
+
+            if (this.hasChildrens()) {
+
+                for (Tree tree : this.root.getChildren()) {
+                    int i = 0;
+
+                    if (this.compareTo(new Tree(nt)) == 0) {
+                        this.root.getChildren().get(i).getRoot().getChildren().addLast(new Tree(new NodeTree(content)));
+                    } else {
+
+                    }
+
+                    i++;
+                }
+            }
+
+        }
+
     }
-    
-    public void delete(T content){
-        
+
+    public void delete(T content) throws EmptyTreeException, TreeContentException {
+
+        if (this.isEmpty()) {
+            throw new EmptyTreeException("");
+        } else if (this.isLeaf()) {
+
+            if (this.root.getContent().equals(content)) {
+                this.root = null;
+            } else {
+                throw new TreeContentException("");
+            }
+        } else {
+
+            if (this.hasChildrens()) {
+                
+                for (Tree tree : this.root.getChildren()) {
+                    int i = 0;
+
+                    if (tree.getRoot().getContent().equals(content)) {
+                        this.root.getChildren().remove(i);
+                    } else {
+                        tree.delete(content);
+                    }
+
+                    i++;
+                }
+                
+            }
+        }
     }
-    
+
+    @Override
+    public int compareTo(Tree<T> otherTree) {
+
+        if (this.root.getContent().equals(otherTree.getRoot().getContent())) {
+            return 0;
+        }
+
+        return 1;
+    }
+
 }

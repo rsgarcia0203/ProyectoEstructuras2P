@@ -15,13 +15,14 @@
  */
 package ec.edu.espol.model;
 
+import java.util.Arrays;
+
 /**
  *
  * @author rsgar
  */
 public class Tablero {
 
-    private final int casillas = 9;
     private final char J1 = 'X';
     private final char J2 = 'O';
     private boolean turno;
@@ -47,13 +48,13 @@ public class Tablero {
     }
 
     public Tablero(int casillasVacias, int casillasLlenas) throws Exception {
-        if (casillasVacias > this.casillas) {
+        if (casillasVacias > 9) {
             this.casillasVacias = casillasVacias;
         } else {
             throw new Exception("");
         }
 
-        if (casillasLlenas > this.casillas) {
+        if (casillasLlenas > 9) {
             this.casillasLlenas = casillasLlenas;
         } else {
             throw new Exception("");
@@ -308,4 +309,45 @@ public class Tablero {
     public int getUtility() {
         return getP('X') - getP('O');
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Arrays.deepHashCode(this.table);
+        hash = 97 * hash + this.casillasVacias;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) {
+            return true;
+        }
+        
+        if (obj == null) {
+            return false;
+        }
+        
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final Tablero other = (Tablero) obj;
+        
+        if (this.casillasVacias != other.casillasVacias) {
+            return false;
+        }
+        
+        for(int i = 0; i < this.table.length; i++){
+            for(int j = 0; j < this.table.length; j++){
+                if(this.table[i][j] != other.getTable()[i][j]){
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
 }

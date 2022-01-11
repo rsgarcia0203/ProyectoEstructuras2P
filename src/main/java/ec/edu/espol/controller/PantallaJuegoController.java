@@ -36,6 +36,7 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
@@ -85,6 +86,24 @@ public class PantallaJuegoController implements Initializable {
     private Type type = Type.PLAYER1;
     
     private Tablero tablero;
+    @FXML
+    private Pane pane1;
+    @FXML
+    private Pane pane2;
+    @FXML
+    private Pane pane3;
+    @FXML
+    private Pane pane6;
+    @FXML
+    private Pane pane5;
+    @FXML
+    private Pane pane4;
+    @FXML
+    private Pane pane7;
+    @FXML
+    private Pane pane8;
+    @FXML
+    private Pane pane9;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -171,60 +190,62 @@ public class PantallaJuegoController implements Initializable {
     @FXML
     private void mouseHover(MouseEvent event) {
 
-        if (ficha11.isHover()) {
+        if (pane1.isHover()) {
             ficha11.setImage(new Image(type.ruta));
-        } else if (ficha12.isHover()) {
+        } else if (pane2.isHover()) {
             ficha12.setImage(new Image(type.ruta));
-        } else if (ficha13.isHover()) {
+        } else if (pane3.isHover()) {
             ficha13.setImage(new Image(type.ruta));
-        } else if (ficha21.isHover()) {
+        } else if (pane4.isHover()) {
             ficha21.setImage(new Image(type.ruta));
-        } else if (ficha22.isHover()) {
+        } else if (pane5.isHover()) {
             ficha22.setImage(new Image(type.ruta));
-        } else if (ficha23.isHover()) {
+        } else if (pane6.isHover()) {
             ficha23.setImage(new Image(type.ruta));
-        } else if (ficha31.isHover()) {
+        } else if (pane7.isHover()) {
             ficha31.setImage(new Image(type.ruta));
-        } else if (ficha32.isHover()) {
+        } else if (pane8.isHover()) {
             ficha32.setImage(new Image(type.ruta));
-        } else if (ficha33.isHover()) {
+        } else if (pane9.isHover()) {
             ficha33.setImage(new Image(type.ruta));
         }
-
+        
+        Sonidos.hover();
     }
 
     @FXML
     private void mouseClick(MouseEvent event) {
 
-        if (ficha11.isPressed()) {
+        if (pane1.isPressed()) {
             ficha11.setImage(new Image(type.ruta));
             ficha11.setOpacity(0.5);
-        } else if (ficha12.isPressed()) {
+        } else if (pane2.isPressed()) {
             ficha12.setImage(new Image(type.ruta));
             ficha12.setOpacity(0.5);
-        } else if (ficha13.isPressed()) {
+        } else if (pane3.isPressed()) {
             ficha13.setImage(new Image(type.ruta));
             ficha13.setOpacity(0.5);
-        } else if (ficha21.isPressed()) {
+        } else if (pane4.isPressed()) {
             ficha21.setImage(new Image(type.ruta));
             ficha21.setOpacity(0.5);
-        } else if (ficha22.isPressed()) {
+        } else if (pane5.isPressed()) {
             ficha22.setImage(new Image(type.ruta));
             ficha22.setOpacity(0.5);
-        } else if (ficha23.isPressed()) {
+        } else if (pane6.isPressed()) {
             ficha23.setImage(new Image(type.ruta));
             ficha23.setOpacity(0.5);
-        } else if (ficha31.isPressed()) {
+        } else if (pane7.isPressed()) {
             ficha31.setImage(new Image(type.ruta));
             ficha31.setOpacity(0.5);
-        } else if (ficha32.isPressed()) {
+        } else if (pane8.isPressed()) {
             ficha32.setImage(new Image(type.ruta));
             ficha32.setOpacity(0.5);
-        } else if (ficha33.isPressed()) {
+        } else if (pane9.isPressed()) {
             ficha33.setImage(new Image(type.ruta));
             ficha33.setOpacity(0.5);
         }
-
+        
+        Sonidos.click();
     }
 
     private void clickAnimation(ImageView imv) {
@@ -234,5 +255,9 @@ public class PantallaJuegoController implements Initializable {
         ft.setCycleCount(Timeline.INDEFINITE);
         ft.setAutoReverse(true);
         ft.play();
+    }
+
+    @FXML
+    private void selectPane(MouseEvent event) {
     }
 }

@@ -60,7 +60,7 @@
                            <children>
                               <ImageView fx:id="gameMode" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/versus2P.png" />
+                                    <Image url="@../img/versus1P.png" />
                                  </image>
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />

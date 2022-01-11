@@ -46,7 +46,7 @@ public abstract class Sonidos {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(
-                        Duration.seconds(60),
+                        Duration.seconds(160),
                         new KeyValue(mediaPlayer.volumeProperty(), 0.20),
                         new KeyValue(mediaPlayer.autoPlayProperty(), true),
                         new KeyValue(mediaPlayer.cycleCountProperty(), 10)

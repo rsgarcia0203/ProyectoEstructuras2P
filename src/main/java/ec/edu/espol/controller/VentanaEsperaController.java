@@ -92,6 +92,8 @@ public class VentanaEsperaController implements Initializable {
         if (btnCPU.isHover()) {
             this.setImages("ec/edu/espol/img/circle.png");
         }
+        
+        Sonidos.hover();
     }
 
     @FXML

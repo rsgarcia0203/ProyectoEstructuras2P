@@ -15,7 +15,9 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
+import ec.edu.espol.model.Tablero;
 import ec.edu.espol.model.Type;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
@@ -81,13 +83,13 @@ public class PantallaJuegoController implements Initializable {
     private ImageView back_btn;
 
     private Type type = Type.PLAYER1;
-
-    /**
-     * Initializes the controller class.
-     */
+    
+    private Tablero tablero;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        
     }
 
     @FXML

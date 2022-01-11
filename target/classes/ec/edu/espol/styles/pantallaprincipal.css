@@ -4,8 +4,14 @@
 */
 
 .root {
-    -fx-background-color:#F0FFF0;
+    -fx-background-color: black;
     -fx-font-size:30;
+}
+
+.pane{
+    -fx-background-color:#FBCF4C;
+    -fx-font-size:54;
+    -fx-background-radius: 1em;
 }
 
 .button {
@@ -25,4 +31,26 @@
     -fx-background-color:#008B8B;
     -fx-text-fill:#ffffff;
     -fx-background-radius: 10em;
+}
+
+.selectionPane{
+    -fx-background-color: darkgray;
+    -fx-font-size:54;
+    -fx-opacity: 0.80;
+}
+
+.selectionPane:hover{
+    -fx-background-color: darkgray;
+    -fx-font-size:54;
+    -fx-opacity: 1;
+}
+
+.selectionPane:pressed{
+    -fx-background-color: darkgray;
+    -fx-font-size:54;
+    -fx-opacity: 0.55;
+}
+
+.bgpane{
+    -fx-background-color: #696969;
 }

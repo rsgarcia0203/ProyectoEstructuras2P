@@ -47,7 +47,7 @@ public abstract class Partida {
 
     };
 
-    public static void nuevaPartidaUnJugador(boolean startFirst) {
+    public static void nuevaPartidaUnJugador(boolean startFirst, Jugador jugadorUno, Jugador jugadorDos) {
 
         if (startFirst) {
             jugadorUno = new Jugador(Type.PLAYER1);

@@ -2,87 +2,145 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="600.0" stylesheets="@../styles/pantallaprincipal.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallaPrincipalController">
-   <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-   </right>
-   <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="400.0" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/pantallaprincipal.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallaPrincipalController">
+   <children>
+      <Pane layoutX="13.0" layoutY="11.0" prefHeight="679.0" prefWidth="674.0" styleClass="pane">
          <children>
-            <ImageView fitHeight="96.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/tic-tac-toe.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="112.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/tic-tac-toe.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-   </top>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="400.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="96.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/tic-tac-toe.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="96.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/tic-tac-toe.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-   </bottom>
-   <center>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox layoutX="77.0" layoutY="301.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="280.0" spacing="5.0">
                <children>
-                  <Label text="TRES EN RAYA" textFill="#32e4af">
-                     <font>
-                        <Font name="Comic Sans MS" size="50.0" />
-                     </font>
-                  </Label>
+                  <Pane fx:id="btnL" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" opacity="0.8" prefHeight="150.0" prefWidth="46.0" styleClass="selectionPane">
+                     <children>
+                        <Label alignment="CENTER" layoutX="2.0" layoutY="35.0" text="⮜">
+                           <font>
+                              <Font size="54.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Pane>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="175.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <children>
+                        <Pane layoutX="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="150.0" prefWidth="161.0" styleClass="bgpane">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                           <children>
+                              <ImageView fx:id="gameMode" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/versus2P.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Pane>
+                  <Pane fx:id="btnR" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" opacity="0.8" prefHeight="150.0" prefWidth="46.0" styleClass="selectionPane">
+                     <children>
+                        <Label alignment="CENTER" layoutX="2.0" layoutY="35.0" prefHeight="27.0" prefWidth="43.0" text="⮞">
+                           <font>
+                              <Font size="54.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Pane>
                </children>
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
             </HBox>
-            <Button fx:id="btn_ng" mnemonicParsing="false" onAction="#newGame" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" text="Nueva partida">
-               <effect>
-                  <DropShadow />
-               </effect>
+            <ImageView fitHeight="201.0" fitWidth="605.0" layoutX="35.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logon.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btn_exit" fitHeight="130.0" fitWidth="130.0" layoutX="444.0" layoutY="502.0" onMouseClicked="#exit" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/exit.png" />
+               </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Button>
-            <Button fx:id="btn_exit" mnemonicParsing="false" onAction="#exit" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="65.0" prefWidth="224.0" text="Salir">
                <effect>
                   <DropShadow />
                </effect>
+            </ImageView>
+            <ImageView fx:id="btn_ng" fitHeight="150.0" fitWidth="200.0" layoutX="444.0" layoutY="301.0" onMouseClicked="#newGame" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/start.png" />
+               </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Button>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="btn_timer" fitHeight="130.0" fitWidth="141.0" layoutX="152.0" layoutY="502.0" onMouseClicked="#timer" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/stopwatch.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
          </children>
-      </VBox>
-   </center>
-</BorderPane>
+      </Pane>
+   </children>
+</AnchorPane>

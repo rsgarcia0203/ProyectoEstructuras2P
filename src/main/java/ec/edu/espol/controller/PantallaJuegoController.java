@@ -84,7 +84,7 @@ public class PantallaJuegoController implements Initializable {
     private ImageView back_btn;
 
     private Type type = Type.PLAYER1;
-    
+
     private Tablero tablero;
     @FXML
     private Pane pane1;
@@ -104,7 +104,7 @@ public class PantallaJuegoController implements Initializable {
     private Pane pane8;
     @FXML
     private Pane pane9;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -209,7 +209,7 @@ public class PantallaJuegoController implements Initializable {
         } else if (pane9.isHover()) {
             ficha33.setImage(new Image(type.ruta));
         }
-        
+
         Sonidos.hover();
     }
 
@@ -244,7 +244,7 @@ public class PantallaJuegoController implements Initializable {
             ficha33.setImage(new Image(type.ruta));
             ficha33.setOpacity(0.5);
         }
-        
+
         Sonidos.click();
     }
 

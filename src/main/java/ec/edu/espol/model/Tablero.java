@@ -15,6 +15,7 @@
  */
 package ec.edu.espol.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -25,10 +26,11 @@ public class Tablero {
 
     private final char J1 = 'X';
     private final char J2 = 'O';
-    private boolean turno;
+    private boolean turno; //turno = true Turno del jugador1: X.   turno= false Turno del jugador2: O
     private char table[][];
     private int casillasVacias;
     private int casillasLlenas;
+    private int utilidad;
 
     public Tablero() {
         this.table = new char[3][3];
@@ -45,6 +47,14 @@ public class Tablero {
         this.casillasLlenas = 0;
         this.casillasVacias = 0;
         this.turno = true;
+    }
+
+    public Tablero(Tablero another) {
+        this.table = new char[3][3];
+        copyTablero(another);
+        this.casillasLlenas = another.casillasLlenas;
+        this.casillasVacias = another.casillasVacias;
+        this.turno = another.isTurno();
     }
 
     public Tablero(int casillasVacias, int casillasLlenas) throws Exception {
@@ -85,6 +95,14 @@ public class Tablero {
         }
     }
 
+    private void copyTablero(Tablero another) {
+        for (int i = 0; i < another.table.length; i++) {
+            for (int j = 0; j < another.table.length; j++) {
+                this.table[i][j] = another.table[i][j];
+            }
+        }
+    }
+
     public boolean isTurno() {
         return turno;
     }
@@ -103,6 +121,14 @@ public class Tablero {
 
     public void cambiarTurno() {
         this.turno = !this.turno;
+    }
+
+    public void setUtilidad(int utilidad) {
+        this.utilidad = utilidad;
+    }
+
+    public int getUtilidad() {
+        return utilidad;
     }
 
     public void insertInto(int row, int column) throws PositionException, RuntimeException {
@@ -142,6 +168,37 @@ public class Tablero {
             }
         }
         return true;
+    }
+
+    //retorna un string en donde hay coincidencia ej: fila1, diagonal1
+    public String coincidence() {
+        String coincidencia = "";
+
+        for (int i = 0; i < 3; i++) {
+            boolean estaUsado = (this.table[i][0] != '-') && (this.table[i][1] != '-') && (this.table[i][2] != '-');
+            if ((this.table[i][0] == this.table[i][1]) && (this.table[i][1] == this.table[i][2]) && estaUsado) {
+                coincidencia = "fila" + String.valueOf(i);
+            }
+        }
+
+        for (int j = 0; j < 3; j++) {
+            boolean estaUsado = (this.table[0][j] != '-') && (this.table[1][j] != '-') && (this.table[2][j] != '-');
+            if ((this.table[0][j] == this.table[1][j]) && (this.table[1][j] == this.table[2][j]) && estaUsado) {
+                coincidencia = "columna" + String.valueOf(j);
+            }
+        }
+
+        boolean estaUsado = (this.table[0][0] != '-') && (this.table[1][1] != '-') && (this.table[2][2] != '-');
+        if ((this.table[0][0] == this.table[1][1]) && (this.table[1][1] == this.table[2][2]) && estaUsado) {
+            coincidencia = "diagonal1"; //izquierda a derecha
+        }
+
+        boolean estaUsado2 = (this.table[0][2] != '-') && (this.table[1][1] != '-') && (this.table[2][0] != '-');
+        if ((this.table[0][2] == this.table[1][1]) && (this.table[1][1] == this.table[2][0]) && estaUsado2) {
+            coincidencia = "diagonal2"; //izquierda a derecha
+        }
+        return coincidencia;
+
     }
 
     public boolean columnCoincidence() {
@@ -222,92 +279,58 @@ public class Tablero {
     }
 
     private int getP(char c) {
+        ArrayList<Integer> filas = new ArrayList<>();
+        filas.add(0);
+        filas.add(1);
+        filas.add(2);
+        ArrayList<Integer> columnas = new ArrayList<>();
+        columnas.add(0);
+        columnas.add(1);
+        columnas.add(2);
+        ArrayList<Integer> diagonal1 = new ArrayList<>();
+        ArrayList<Integer> diagonal2 = new ArrayList<>();
 
-        int p = 0;
-
-        // verificamos las filas
-        for (int i = 0; i < table.length; i++) {
-
-            if (table[i][0] == c || table[i][0] == '-') {
-
-                int cont = 0;
-
-                for (int j = 0; j < table.length; j++) {
-
-                    if (table[i][j] == c || table[i][j] == '-') {
-                        cont++;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (this.table[i][j] != c && this.table[i][j] != '-') {
+                    if (filas.contains(i)) {
+                        filas.remove(filas.indexOf(i));
                     }
-
-                }
-
-                if (cont == 3) {
-                    i++;
-                }
-
-            }
-        }
-
-        //verificamos las columnas
-        for (int j = 0; j < table.length; j++) {
-
-            if (table[0][j] == c || table[0][j] == '-') {
-
-                int cont = 0;
-
-                for (int i = 0; i < table.length; i++) {
-
-                    if (table[i][j] == c || table[i][j] == '-') {
-                        cont++;
+                    if (columnas.contains(j)) {
+                        columnas.remove(columnas.indexOf(j));
                     }
-
-                }
-
-                if (cont == 3) {
-                    p++;
+                } else {
+                    if (i == j) {
+                        diagonal1.add(i);
+                    }
+                    if (i + j == 2) {
+                        diagonal2.add(i);
+                    }
                 }
             }
         }
-
-        //Verificamos la diagonal principal
-        if (table[0][0] == '-' || table[0][0] == c) {
-
-            int cont = 0;
-
-            for (int i = 1; i < table.length; i++) {
-
-                if (table[i][i] == '-' || table[i][i] == c) {
-                    cont++;
-                }
-            }
-
-            if (cont == 3) {
-                p++;
-            }
+        int resultado = filas.size() + columnas.size();
+        if (diagonal1.size() == 3) {
+            resultado++;
         }
-
-        //Verificamos la otra diagonal
-        if (table[0][2] != '-' || table[0][2] == c) {
-
-            int cont = 0;
-
-            for (int i = 1, j = 1; i < table.length; i++, j++) {
-
-                if (table[i][j] == '-' || table[i][j] == c) {
-                    cont++;
-                }
-            }
-            
-            if(cont == 3){
-                p++;
-            }
+        if (diagonal2.size() == 3) {
+            resultado++;
         }
-        
-        return p;
+        return resultado;
 
     }
 
     public int getUtility() {
-        return getP('X') - getP('O');
+        //Cuando hay coincidencia no se haya utilidad
+        if (coincidence().length() != 0) {
+            return -100;
+        }
+        if (!turno) {
+            return getP('X') - getP('O');
+        } else {
+            return getP('O') - getP('X');
+        }
+
     }
 
     @Override
@@ -320,34 +343,34 @@ public class Tablero {
 
     @Override
     public boolean equals(Object obj) {
-        
+
         if (this == obj) {
             return true;
         }
-        
+
         if (obj == null) {
             return false;
         }
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         final Tablero other = (Tablero) obj;
-        
+
         if (this.casillasVacias != other.casillasVacias) {
             return false;
         }
-        
-        for(int i = 0; i < this.table.length; i++){
-            for(int j = 0; j < this.table.length; j++){
-                if(this.table[i][j] != other.getTable()[i][j]){
+
+        for (int i = 0; i < this.table.length; i++) {
+            for (int j = 0; j < this.table.length; j++) {
+                if (this.table[i][j] != other.getTable()[i][j]) {
                     return false;
                 }
             }
         }
-        
+
         return true;
     }
-    
+
 }

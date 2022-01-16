@@ -20,7 +20,7 @@ package ec.edu.espol.model;
  * @author rsgar
  */
 public enum Type {
-    PLAYER1("ec/edu/espol/img/clear.png"), PLAYER2("ec/edu/espol/img/circle.png"),CPU("ec/edu/espol/img/circle.png");
+    PLAYER1("ec/edu/espol/img/clear.png"), PLAYER2("ec/edu/espol/img/circle.png"),CPU1("ec/edu/espol/img/clear.png"), CPU2("ec/edu/espol/img/circle.png");
     
     public final String ruta;
 

@@ -333,6 +333,20 @@ public class Tablero {
 
     }
 
+    public void actualizarTablero(int fila, int columna) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i == fila && j == columna) {
+                    if (turno) {
+                        this.table[i][j] = 'X';
+                    } else {
+                        this.table[i][j] = 'O';
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

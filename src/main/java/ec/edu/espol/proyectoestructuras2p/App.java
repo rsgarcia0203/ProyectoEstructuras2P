@@ -53,7 +53,7 @@ public class App extends Application {
         //PRUEBA DEL METODO MEJOR JUGADA
         System.out.println("TABLERO INICIAL");
         Tablero tablero = new Tablero();
-        /*tablero.getTable()[0][0]='X';
+        tablero.getTable()[0][0]='X';
         tablero.getTable()[0][1]='X';
         tablero.getTable()[0][2]='O';
         tablero.getTable()[1][0]='-';
@@ -61,7 +61,7 @@ public class App extends Application {
         tablero.getTable()[1][2]='-';
         tablero.getTable()[2][0]='-';
         tablero.getTable()[2][1]='O';
-        tablero.getTable()[2][2]='X';*/
+        tablero.getTable()[2][2]='X';
         for (char[] c : tablero.getTable()) {
             for (char c2 : c) {
                 System.out.print(c2 + "|");
@@ -75,6 +75,9 @@ public class App extends Application {
                 System.out.print(c2 + "|");
             }
             System.out.println();
+        }
+        for(int i: bestPlay.getUltimaPosicion()){
+            System.out.println(i);
         }
         launch();
     }

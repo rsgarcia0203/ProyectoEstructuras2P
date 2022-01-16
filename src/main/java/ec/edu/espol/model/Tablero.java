@@ -82,7 +82,7 @@ public class Tablero {
     public int getCasillasLlenas() {
         return casillasLlenas;
     }
-
+    
     public void setCasillasLlenas(int casillasLlenas) {
         this.casillasLlenas = casillasLlenas;
     }

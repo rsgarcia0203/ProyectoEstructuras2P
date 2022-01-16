@@ -15,6 +15,8 @@
  */
 package ec.edu.espol.controller;
 
+import TDA.Tree;
+import ec.edu.espol.model.Jugador;
 import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
 import ec.edu.espol.model.Tablero;
@@ -83,9 +85,12 @@ public class PantallaJuegoController implements Initializable {
     @FXML
     private ImageView back_btn;
 
-    private Type type = Type.PLAYER1;
+    private Type type;
+    private boolean turno;
+    private Jugador player1;
+    private Jugador player2;
 
-    private Tablero tablero;
+    private Tablero tablero = new Tablero();
     @FXML
     private Pane pane1;
     @FXML
@@ -104,11 +109,56 @@ public class PantallaJuegoController implements Initializable {
     private Pane pane8;
     @FXML
     private Pane pane9;
+    private Tree<Tablero> arbol;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+
+        if (turno == false) {
+            Tablero bestPlay = Partida.mejorJugada(tablero);
+            visualiceTable(bestPlay);
+
+        }
+
+    }
+
+    public void setPlayer1(Jugador player1) {
+        this.player1 = player1;
+    }
+
+    public void setPlayer2(Jugador player2) {
+        this.player2 = player2;
+    }
+
+    public void setTablero(Tablero tablero) {
+        this.tablero = tablero;
+        this.turno = tablero.isTurno();
+        this.arbol = Partida.generarArbol(tablero);
+    }
+
+    public void visualiceTable(Tablero tablero) {
+
+        for (int i = 0; i < tablero.getTable().length; i++) {
+
+            for (int j = 0; j < tablero.getTable().length; j++) {
+                
+                if(this.tablero.getTable()[i][j] != '-'){
+                    
+                }
+                        
+            }
+
+        }
+    }
+    
+    private void visualiceToken(int fila, int columna){
+        if(fila == 0){
+            
+        } else if (fila == 1){
+            
+        } else if (fila == 2){
+            
+        }
     }
 
     @FXML
@@ -127,16 +177,32 @@ public class PantallaJuegoController implements Initializable {
         back_btn.setOpacity(0.7);
     }
 
-    private void setImagePlayer(Type type, ImageView imv) {
-        if (type == Type.PLAYER1) {
-            //imv
+    private void setImagePlayer(Jugador jugador) {
+        if (pane1.isHover()) {
+            ficha11.setImage(new Image(jugador.getToken()));
+        } else if (pane2.isHover()) {
+            ficha12.setImage(new Image(jugador.getToken()));
+        } else if (pane3.isHover()) {
+            ficha13.setImage(new Image(jugador.getToken()));
+        } else if (pane4.isHover()) {
+            ficha21.setImage(new Image(jugador.getToken()));
+        } else if (pane5.isHover()) {
+            ficha22.setImage(new Image(jugador.getToken()));
+        } else if (pane6.isHover()) {
+            ficha23.setImage(new Image(jugador.getToken()));
+        } else if (pane7.isHover()) {
+            ficha31.setImage(new Image(jugador.getToken()));
+        } else if (pane8.isHover()) {
+            ficha32.setImage(new Image(jugador.getToken()));
+        } else if (pane9.isHover()) {
+            ficha33.setImage(new Image(jugador.getToken()));
         }
     }
 
     @FXML
     private void back(MouseEvent event) {
-        try {
 
+        try {
             Sonidos.back();
             Alert a = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de regresar a la pantalla principal?, se perderán todos los datos de la partida actual.");
             a.setTitle("TIC-TAC-TOE");
@@ -189,25 +255,10 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private void mouseHover(MouseEvent event) {
-
-        if (pane1.isHover()) {
-            ficha11.setImage(new Image(type.ruta));
-        } else if (pane2.isHover()) {
-            ficha12.setImage(new Image(type.ruta));
-        } else if (pane3.isHover()) {
-            ficha13.setImage(new Image(type.ruta));
-        } else if (pane4.isHover()) {
-            ficha21.setImage(new Image(type.ruta));
-        } else if (pane5.isHover()) {
-            ficha22.setImage(new Image(type.ruta));
-        } else if (pane6.isHover()) {
-            ficha23.setImage(new Image(type.ruta));
-        } else if (pane7.isHover()) {
-            ficha31.setImage(new Image(type.ruta));
-        } else if (pane8.isHover()) {
-            ficha32.setImage(new Image(type.ruta));
-        } else if (pane9.isHover()) {
-            ficha33.setImage(new Image(type.ruta));
+        if (this.turno == true) {
+            this.setImagePlayer(player1);
+        } else {
+            this.setImagePlayer(player2);
         }
 
         Sonidos.hover();
@@ -259,6 +310,6 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private void selectPane(MouseEvent event) {
-        
+
     }
 }

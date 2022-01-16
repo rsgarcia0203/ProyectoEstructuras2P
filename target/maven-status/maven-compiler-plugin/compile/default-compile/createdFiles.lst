@@ -1,12 +1,10 @@
 ec\edu\espol\model\PositionException.class
 ec\edu\espol\proyectoestructuras2p\App.class
 TDA\NodeTree.class
-module-info.class
 ec\edu\espol\controller\PantallaPrincipalController.class
 TDA\ParentException.class
 ec\edu\espol\model\Jugador.class
-ec\edu\espol\controller\VentanaEsperaController.class
-TDA\TreeContentException.class
+ec\edu\espol\model\GameMode.class
 TDA\EmptyTreeException.class
 TDA\Tree.class
 ec\edu\espol\controller\PantallaJuegoController.class

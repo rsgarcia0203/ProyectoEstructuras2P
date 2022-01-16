@@ -15,7 +15,10 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Jugador;
 import ec.edu.espol.model.Sonidos;
+import ec.edu.espol.model.Tablero;
+import ec.edu.espol.model.Type;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
@@ -116,8 +119,13 @@ public class VentanaEsperaController implements Initializable {
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
             App.setRoot(fxmlloader);
-            Sonidos.goButton();
+            PantallaJuegoController pjc = fxmlloader.getController();
+            pjc.setPlayer1(new Jugador(Type.PLAYER1));
+            pjc.setPlayer2(new Jugador(Type.CPU2));
+            pjc.setTablero(new Tablero(true));
+            Sonidos.goButton();   
         } catch (IOException ex) {
+            ex.printStackTrace();
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
         }
@@ -125,11 +133,16 @@ public class VentanaEsperaController implements Initializable {
 
     @FXML
     private void start2(MouseEvent event) {
-        try {
+        try {         
             FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-            App.setRoot(fxmlloader);
+            App.setRoot(fxmlloader);         
+            PantallaJuegoController pjc = fxmlloader.getController();
+            pjc.setPlayer1(new Jugador(Type.CPU1));
+            pjc.setPlayer2(new Jugador(Type.PLAYER2));
+            pjc.setTablero(new Tablero(false));
             Sonidos.goButton();
         } catch (IOException ex) {
+            ex.printStackTrace();
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
         }

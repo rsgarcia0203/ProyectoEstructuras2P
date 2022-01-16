@@ -31,6 +31,7 @@ public class Tablero {
     private int casillasVacias;
     private int casillasLlenas;
     private int utilidad;
+    private int[] ultimaPosicion;
 
     public Tablero() {
         this.table = new char[3][3];
@@ -38,6 +39,7 @@ public class Tablero {
         this.casillasLlenas = 0;
         this.casillasVacias = 0;
         this.turno = true;
+        this.ultimaPosicion = new int[2];
     }
 
     public Tablero(boolean turno) {
@@ -129,6 +131,14 @@ public class Tablero {
 
     public int getUtilidad() {
         return utilidad;
+    }
+
+    public int[] getUltimaPosicion() {
+        return ultimaPosicion;
+    }
+
+    public void setUltimaPosicion(int[] ultimaPosicion) {
+        this.ultimaPosicion = ultimaPosicion;
     }
 
     public void insertInto(int row, int column) throws PositionException, RuntimeException {

@@ -17,6 +17,7 @@ package ec.edu.espol.model;
 
 import TDA.NodeTree;
 import TDA.Tree;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 
@@ -78,7 +79,7 @@ public abstract class Partida {
     
     //se generan los hijos de un tablero
     public static void generarHijos(Tree<Tablero> tree) {
-        LinkedList<String> posicion = new LinkedList<>();
+        ArrayList<String> posicion = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tree.getRoot().getContent().getTable()[i][j] == '-') {
@@ -97,6 +98,8 @@ public abstract class Partida {
             } else {
                 tableroCopia.getTable()[Integer.valueOf(pos[0])][Integer.valueOf(pos[1])] = 'O';
             }
+            int[] ultP = {Integer.valueOf(pos[0]), Integer.valueOf(pos[1])};
+            tableroCopia.setUltimaPosicion(ultP);
             NodeTree<Tablero> nodoHijo = new NodeTree(tableroCopia);
             Tree<Tablero> treeHijo = new Tree(nodoHijo);
             tree.getRoot().getChildren().add(treeHijo);

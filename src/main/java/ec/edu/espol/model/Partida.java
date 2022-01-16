@@ -54,9 +54,9 @@ public abstract class Partida {
 
         if (startFirst) {
             jugadorUno = new Jugador(Type.PLAYER1);
-            jugadorDos = new Jugador(Type.CPU);
+            jugadorDos = new Jugador(Type.CPU2);
         } else {
-            jugadorUno = new Jugador(Type.CPU);
+            jugadorUno = new Jugador(Type.CPU1);
             jugadorDos = new Jugador(Type.PLAYER1);
         }
 

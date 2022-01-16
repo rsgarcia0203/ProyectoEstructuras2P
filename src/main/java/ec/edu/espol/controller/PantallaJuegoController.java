@@ -259,5 +259,6 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private void selectPane(MouseEvent event) {
+        
     }
 }

@@ -15,7 +15,9 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.GameMode;
 import ec.edu.espol.model.Jugador;
+import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
 import ec.edu.espol.model.Tablero;
 import ec.edu.espol.model.Type;
@@ -43,8 +45,6 @@ import javafx.scene.input.MouseEvent;
 public class VentanaEsperaController implements Initializable {
 
     @FXML
-    private ImageView back;
-    @FXML
     private ImageView ficha11;
     @FXML
     private ImageView ficha12;
@@ -65,25 +65,54 @@ public class VentanaEsperaController implements Initializable {
     @FXML
     private Button btnP1;
     @FXML
-    private Button btnCPU;
+    private Button btnP2;
+    @FXML
+    
+    private ImageView btn_back;
+    private boolean timer = false;
+    private GameMode gm;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        
     }
+    
+    public void setTimer(boolean timer){
+        this.timer = timer;
+    }
+    
+    public void setGameMode(GameMode gm){
+        this.gm = gm;
+        
+        if(gm == GameMode.PLAYERVSCPU){
+            btnP1.setText("YO");
+            btnP2.setText("CPU");
+        }
+        
+        if(gm == GameMode.PLAYERVSPLAYER){
+            btnP1.setPrefSize(160, 50);
+            btnP2.setPrefSize(160, 50);
+            btnP1.setText("JUGADOR 1");
+            btnP2.setText("JUGADOR 2");
+        }
 
+    }
+    
     @FXML
     private void mouseReleased(MouseEvent event) {
         btnP1.setEffect(new DropShadow());
-        btnCPU.setEffect(new DropShadow());
+        btnP2.setEffect(new DropShadow());
+        btn_back.setEffect(new DropShadow());
     }
 
     @FXML
     private void mouseExited(MouseEvent event) {
         this.clearImages();
+        btn_back.setOpacity(0.80);
     }
 
     @FXML
@@ -92,8 +121,12 @@ public class VentanaEsperaController implements Initializable {
             this.setImages("ec/edu/espol/img/clear.png");
         }
 
-        if (btnCPU.isHover()) {
+        if (btnP2.isHover()) {
             this.setImages("ec/edu/espol/img/circle.png");
+        }
+        
+        if (btn_back.isHover()){
+            btn_back.setOpacity(1);
         }
         
         Sonidos.hover();
@@ -101,6 +134,16 @@ public class VentanaEsperaController implements Initializable {
 
     @FXML
     private void back(MouseEvent event) {
+        
+        try {         
+            FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");                  
+            App.setRoot(fxmlloader);
+            Sonidos.back();
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+            a.show();
+        }
+        
     }
 
     @FXML
@@ -109,8 +152,13 @@ public class VentanaEsperaController implements Initializable {
             btnP1.setEffect(new InnerShadow());
         }
 
-        if (btnCPU.isPressed()) {
-            btnCPU.setEffect(new InnerShadow());
+        if (btnP2.isPressed()) {
+            btnP2.setEffect(new InnerShadow());
+        }
+        
+        if (btn_back.isPressed()){
+            btn_back.setOpacity(0.55);
+            btn_back.setEffect(new InnerShadow());
         }
     }
 
@@ -118,11 +166,9 @@ public class VentanaEsperaController implements Initializable {
     private void start1(MouseEvent event) {
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-            App.setRoot(fxmlloader);
             PantallaJuegoController pjc = fxmlloader.getController();
-            pjc.setPlayer1(new Jugador(Type.PLAYER1));
-            pjc.setPlayer2(new Jugador(Type.CPU2));
-            pjc.setTablero(new Tablero(true));
+            App.setRoot(fxmlloader);
+            Partida.nuevaPartidaUnJugador(true, timer);
             Sonidos.goButton();   
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -134,12 +180,10 @@ public class VentanaEsperaController implements Initializable {
     @FXML
     private void start2(MouseEvent event) {
         try {         
-            FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-            App.setRoot(fxmlloader);         
+            FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");                  
             PantallaJuegoController pjc = fxmlloader.getController();
-            pjc.setPlayer1(new Jugador(Type.CPU1));
-            pjc.setPlayer2(new Jugador(Type.PLAYER2));
-            pjc.setTablero(new Tablero(false));
+            App.setRoot(fxmlloader);
+            Partida.nuevaPartidaUnJugador(false, timer);
             Sonidos.goButton();
         } catch (IOException ex) {
             ex.printStackTrace();

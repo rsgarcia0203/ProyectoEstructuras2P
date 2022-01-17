@@ -29,21 +29,7 @@
             <HBox prefHeight="68.0" prefWidth="600.0" styleClass="border" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
-            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="600.0" styleClass="border" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="47.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/undo.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-               </children>
-            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="600.0" styleClass="border" BorderPane.alignment="CENTER" />
          </bottom>
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane" BorderPane.alignment="CENTER">
@@ -126,7 +112,7 @@
                   <Label text="¿QUIEN EMPIEZA LA PARTIDA?" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
-                        <Button fx:id="btnP1" mnemonicParsing="false" onMouseClicked="#start1" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="50.0" prefWidth="86.0" styleClass="btn1" text="YO">
+                        <Button fx:id="btnP1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#start1" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="50.0" prefWidth="86.0" styleClass="btn1" text="YO">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -134,7 +120,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnCPU" mnemonicParsing="false" onMouseClicked="#start2" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="50.0" prefWidth="86.0" styleClass="btn2" text="CPU">
+                        <Button fx:id="btnP2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#start2" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" prefHeight="50.0" prefWidth="86.0" styleClass="btn2" text="CPU">
                            <effect>
                               <DropShadow />
                            </effect>
@@ -146,6 +132,17 @@
                   </HBox>
                </children>
             </VBox>
+            <ImageView fx:id="btn_back" fitHeight="47.0" fitWidth="51.0" layoutX="14.0" layoutY="639.0" onMouseClicked="#back" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/undo.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </Pane>
    </children>

@@ -24,7 +24,7 @@ import javafx.scene.image.Image;
 public class Jugador {
 
     private int casillasLlenas;
-    private Type e;
+    private Type type;
     private Image token;
 
     public Jugador() {
@@ -35,10 +35,10 @@ public class Jugador {
         this.casillasLlenas = casillasLlenas;
     }
 
-    public Jugador(Type e) {
+    public Jugador(Type type) {
         this.casillasLlenas = 0;
-        this.e = e;
-        this.token = new Image(this.e.ruta);
+        this.type = type;
+        this.token = new Image(this.type.ruta);
     }
 
     public int getCasillasLlenas() {
@@ -49,16 +49,16 @@ public class Jugador {
         this.casillasLlenas = casillasLlenas;
     }
 
-    public Type getE() {
-        return e;
+    public Type getType() {
+        return this.type;
     }
 
-    public void setE(Type e) {
-        this.e = e;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getToken() {
-        return this.e.ruta;
+        return this.type.ruta;
     }
 
     public void setToken(String ruta) {

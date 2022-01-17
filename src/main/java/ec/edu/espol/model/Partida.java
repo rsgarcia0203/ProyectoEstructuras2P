@@ -20,6 +20,7 @@ import TDA.Tree;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Random;
 
 public abstract class Partida {
 
@@ -27,6 +28,7 @@ public abstract class Partida {
     public static Jugador jugadorDos;
     public static Tablero tablero;
     public static boolean startFirst;
+    public static boolean xtreme;
 
     private static final Comparator<Tablero> cmp = (t1, t2) -> {
 
@@ -51,30 +53,47 @@ public abstract class Partida {
 
     };
 
-    public static void nuevaPartidaUnJugador(boolean startFirst, Jugador jugadorUno, Jugador jugadorDos) {
+    public static void nuevaPartidaUnJugador(boolean startFirst, boolean xtreme_mode) {
 
-        if (startFirst) {
+        if (startFirst == true) {
             jugadorUno = new Jugador(Type.PLAYER1);
-            jugadorDos = new Jugador(Type.CPU2);
+            jugadorDos = new Jugador(Type.CPU2);          
         } else {
             jugadorUno = new Jugador(Type.CPU1);
             jugadorDos = new Jugador(Type.PLAYER1);
         }
-
-        tablero = new Tablero();
+        
+        xtreme = xtreme_mode;
+        tablero = new Tablero(startFirst);
     }
 
-    public static void nuevaPartidaDosJugadores(boolean startFirst) {
+    public static void nuevaPartidaDosJugadores(boolean startFirst, boolean xtreme_mode) {
 
-        if (startFirst) {
+        if (startFirst == true) {
             jugadorUno = new Jugador(Type.PLAYER1);
             jugadorDos = new Jugador(Type.PLAYER2);
         } else {
             jugadorUno = new Jugador(Type.PLAYER2);
             jugadorDos = new Jugador(Type.PLAYER1);
         }
-
-        tablero = new Tablero();
+        xtreme = xtreme_mode;
+        tablero = new Tablero(startFirst);
+    }
+    
+    public static void nuevaPartidaDosCPU(){
+        
+        Random rd = new Random();
+        int turno = rd.nextInt(2);
+        
+        if(turno == 0){
+            jugadorUno = new Jugador(Type.CPU1);
+            jugadorDos = new Jugador(Type.CPU2);
+        } else {
+            jugadorUno = new Jugador(Type.CPU2);
+            jugadorDos = new Jugador(Type.CPU1);  
+        }
+        
+        tablero = new Tablero(startFirst);
     }
     
     //se generan los hijos de un tablero

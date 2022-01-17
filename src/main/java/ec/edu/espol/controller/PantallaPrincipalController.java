@@ -16,7 +16,11 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.model.GameMode;
+import ec.edu.espol.model.Jugador;
+import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
+import ec.edu.espol.model.Tablero;
+import ec.edu.espol.model.Type;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -79,7 +83,7 @@ public class PantallaPrincipalController {
         btn_ng.setOpacity(0.80);
         btn_exit.setOpacity(0.80);
 
-        if (timer) {
+        if (timer == true) {
             btn_timer.setOpacity(1);
         } else {
             btn_timer.setOpacity(0.50);
@@ -101,7 +105,7 @@ public class PantallaPrincipalController {
 
         if (btn_timer.isHover()) {
 
-            if (timer) {
+            if (timer == true) {
                 btn_timer.setOpacity(0.80);
             } else {
                 btn_timer.setOpacity(0.70);
@@ -135,7 +139,7 @@ public class PantallaPrincipalController {
 
         if (btn_timer.isPressed()) {
 
-            if (timer) {
+            if (timer == true) {
                 btn_timer.setEffect(new InnerShadow());
                 btn_timer.setOpacity(0.55);
                 Sonidos.click();
@@ -168,11 +172,10 @@ public class PantallaPrincipalController {
         timer = !timer;
     }
 
- 
     private void changeGM() {
 
         if (btnR.isPressed()) {
-            
+
             if (gm == GameMode.PLAYERVSCPU) {
                 gm = GameMode.PLAYERVSPLAYER;
             } else if (gm == GameMode.PLAYERVSPLAYER) {
@@ -180,9 +183,9 @@ public class PantallaPrincipalController {
             } else if (gm == GameMode.CPUVSCPU) {
                 gm = GameMode.PLAYERVSCPU;
             }
-            
-        } else if(btnL.isPressed()){
-            
+
+        } else if (btnL.isPressed()) {
+
             if (gm == GameMode.PLAYERVSCPU) {
                 gm = GameMode.CPUVSCPU;
             } else if (gm == GameMode.PLAYERVSPLAYER) {
@@ -190,9 +193,9 @@ public class PantallaPrincipalController {
             } else if (gm == GameMode.CPUVSCPU) {
                 gm = GameMode.PLAYERVSPLAYER;
             }
-            
+
         }
-        
+
         gameMode.setImage(new Image(gm.ruta));
     }
 
@@ -205,12 +208,25 @@ public class PantallaPrincipalController {
     @FXML
     private void newGame(MouseEvent event) {
         try {
-            FXMLLoader fxmlloader = App.loadFXMLoader("VentanaEspera");
-            App.setRoot(fxmlloader);
+
+            if (gm == GameMode.CPUVSCPU) {
+                FXMLLoader fxmlloader = App.loadFXMLoader("PantallaJuego");
+                App.setRoot(fxmlloader);
+                Partida.nuevaPartidaDosCPU();
+            } else {
+                FXMLLoader fxmlloader = App.loadFXMLoader("VentanaEspera");
+                App.setRoot(fxmlloader);
+                VentanaEsperaController vec = fxmlloader.getController();
+                vec.setTimer(timer);
+                vec.setGameMode(gm);
+            }
+
             Sonidos.goButton();
+
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
+            ex.printStackTrace();
         }
     }
 

@@ -26,6 +26,7 @@ import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -134,6 +135,7 @@ public class PantallaJuegoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         this.jugadorActual = Partida.jugadorUno;
+        this.tablero = Partida.tablero;
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
             P1name.setText("JUGADOR");
@@ -179,6 +181,11 @@ public class PantallaJuegoController implements Initializable {
             paneP2.setOpacity(1);
         }
 
+        if (Partida.gameMode != GameMode.CPUVSCPU) {
+            if (verifyCPU() == true) {
+                jugadaCPU(6);
+            }
+        }
     }
 
     public void setTablero(Tablero tablero) {
@@ -212,6 +219,41 @@ public class PantallaJuegoController implements Initializable {
             paneP2.setOpacity(1);
         }
 
+        if (verifyCPU() == true) {
+            jugadaCPU(6);
+        }
+    }
+
+    private void jugadaCPU(int tiempo) {
+        Random rd = new Random();
+        int tempo = rd.nextInt(tiempo);
+
+        Tablero bestPlay = Partida.mejorJugada(tablero);
+        int[] pos = bestPlay.getUltimaPosicion();
+        visualiceToken(pos[0], pos[1], jugadorActual);
+        this.tablero.actualizarTablero(pos[0], pos[1]);
+        cambiarTurno();
+    }
+
+    private void tiempoCPU(int tiempo) {
+        timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarTimers()));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+    }
+
+    private boolean verifyCPU() {
+
+        if (Partida.gameMode == GameMode.PLAYERVSCPU) {
+
+            if (jugadorActual.getType() == Type.CPU1 || jugadorActual.getType() == Type.CPU2) {
+                return true;
+            }
+
+        } else if (Partida.gameMode == GameMode.CPUVSCPU) {
+            return true;
+        }
+
+        return false;
     }
 
     private void actualizarTimers() {
@@ -227,6 +269,36 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         }
 
+    }
+
+    private void endGame() {
+
+        if (!tablero.coincidence().equals("")) {
+            Sonidos.win();
+            toMain();
+        } else if (tablero.isFull()) {
+            Sonidos.lose();
+            toMain();
+        }
+    }
+
+    private void toMain() {
+        try {
+            Sonidos.lose();
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de regresar a la pantalla principal?, se perderán todos los datos de la partida actual.");
+            a.setTitle("TIC-TAC-TOE");
+            a.setHeaderText("Confirmación de salida");
+            Optional<ButtonType> resultado = a.showAndWait();
+
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
+                App.setRoot(fxmlloader);
+            }
+
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+            a.show();
+        }
     }
 
     private int getTurno() {
@@ -373,15 +445,42 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private void mouseNotHover(MouseEvent event) {
-        ficha11.setImage(null);
-        ficha12.setImage(null);
-        ficha13.setImage(null);
-        ficha21.setImage(null);
-        ficha22.setImage(null);
-        ficha23.setImage(null);
-        ficha31.setImage(null);
-        ficha32.setImage(null);
-        ficha33.setImage(null);
+        if (!pane1.isDisabled()) {
+            ficha11.setImage(null);
+        }
+
+        if (!pane2.isDisabled()) {
+            ficha12.setImage(null);
+        }
+
+        if (!pane3.isDisabled()) {
+            ficha13.setImage(null);
+        }
+
+        if (!pane4.isDisabled()) {
+            ficha21.setImage(null);
+        }
+
+        if (!pane5.isDisabled()) {
+            ficha22.setImage(null);
+        }
+
+        if (!pane6.isDisabled()) {
+            ficha23.setImage(null);
+        }
+
+        if (!pane7.isDisabled()) {
+            ficha31.setImage(null);
+        }
+
+        if (!pane8.isDisabled()) {
+            ficha32.setImage(null);
+        }
+
+        if (!pane9.isDisabled()) {
+            ficha33.setImage(null);
+        }
+
     }
 
     @FXML
@@ -393,33 +492,69 @@ public class PantallaJuegoController implements Initializable {
     @FXML
     private void mouseClick(MouseEvent event) {
 
-        if (pane1.isPressed()) {
+        if (pane1.isPressed() && !pane1.isDisabled()) {
             ficha11.setImage(new Image(this.jugadorActual.getToken()));
             ficha11.setOpacity(0.5);
-        } else if (pane2.isPressed()) {
+            pane1.setDisable(true);
+            this.tablero.actualizarTablero(0, 0);
+            endGame();
+            cambiarTurno();
+        } else if (pane2.isPressed() && !pane2.isDisabled()) {
             ficha12.setImage(new Image(this.jugadorActual.getToken()));
             ficha12.setOpacity(0.5);
-        } else if (pane3.isPressed()) {
+            pane2.setDisable(true);
+            this.tablero.actualizarTablero(0, 1);
+            endGame();
+            cambiarTurno();
+        } else if (pane3.isPressed() && !pane3.isDisabled()) {
             ficha13.setImage(new Image(this.jugadorActual.getToken()));
             ficha13.setOpacity(0.5);
-        } else if (pane4.isPressed()) {
+            pane3.setDisable(true);
+            this.tablero.actualizarTablero(0, 2);
+            endGame();
+            cambiarTurno();
+        } else if (pane4.isPressed() && !pane4.isDisabled()) {
             ficha21.setImage(new Image(this.jugadorActual.getToken()));
             ficha21.setOpacity(0.5);
-        } else if (pane5.isPressed()) {
+            pane4.setDisable(true);
+            this.tablero.actualizarTablero(1, 0);
+            endGame();
+            cambiarTurno();
+        } else if (pane5.isPressed() && !pane5.isDisabled()) {
             ficha22.setImage(new Image(this.jugadorActual.getToken()));
             ficha22.setOpacity(0.5);
-        } else if (pane6.isPressed()) {
+            pane5.setDisable(true);
+            this.tablero.actualizarTablero(1, 1);
+            endGame();
+            cambiarTurno();
+        } else if (pane6.isPressed() && !pane6.isDisabled()) {
             ficha23.setImage(new Image(this.jugadorActual.getToken()));
             ficha23.setOpacity(0.5);
-        } else if (pane7.isPressed()) {
+            pane6.setDisable(true);
+            this.tablero.actualizarTablero(1, 2);
+            endGame();
+            cambiarTurno();
+        } else if (pane7.isPressed() && !pane7.isDisabled()) {
             ficha31.setImage(new Image(this.jugadorActual.getToken()));
             ficha31.setOpacity(0.5);
-        } else if (pane8.isPressed()) {
+            pane7.setDisable(true);
+            this.tablero.actualizarTablero(2, 0);
+            endGame();
+            cambiarTurno();
+        } else if (pane8.isPressed() && !pane8.isDisabled()) {
             ficha32.setImage(new Image(this.jugadorActual.getToken()));
             ficha32.setOpacity(0.5);
-        } else if (pane9.isPressed()) {
+            pane8.setDisable(true);
+            this.tablero.actualizarTablero(2, 1);
+            endGame();
+            cambiarTurno();
+        } else if (pane9.isPressed() && !pane9.isDisabled()) {
             ficha33.setImage(new Image(this.jugadorActual.getToken()));
             ficha33.setOpacity(0.5);
+            pane9.setDisable(true);
+            this.tablero.actualizarTablero(2, 2);
+            endGame();
+            cambiarTurno();
         }
 
         Sonidos.click();

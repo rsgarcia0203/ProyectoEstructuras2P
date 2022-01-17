@@ -193,5 +193,32 @@ public abstract class Partida {
         
         return bestPlay;
     }
+    
+    //se elige un tablero al azar usando el arbol
+    public static Tablero jugadaAutomatica(Tablero tablero) {
+        
+        Tree<Tablero> treeGenerado = generarArbol(tablero);
+        
+        for (int i = 0; i < treeGenerado.getRoot().getChildren().size(); i++) {
+            Integer minUtility = 1000;
+            
+            for (int i2 = 0; i2 < treeGenerado.getRoot().getChildren().get(i).getRoot().getChildren().size(); i2++) {
+                int utilidad = treeGenerado.getRoot().getChildren().get(i).getRoot().getChildren().get(i2).getRoot().getContent().getUtility();
+                
+                if (utilidad < minUtility) {
+                    minUtility = utilidad;
+                }
+                
+            }
+            
+            treeGenerado.getRoot().getChildren().get(i).getRoot().getContent().setUtilidad(minUtility);
+        }
+        
+        Random rd = new Random();
+        int i = rd.nextInt(treeGenerado.getRoot().getChildren().size());
+        Tablero automaticPlay = treeGenerado.getRoot().getChildren().get(i).getRoot().getContent();
+        
+        return automaticPlay;
+    }
 
 }

@@ -20,9 +20,12 @@ import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
@@ -35,7 +38,7 @@ import javafx.scene.layout.Pane;
  *
  * @author rsgar
  */
-public class PantallaPrincipalController {
+public class PantallaPrincipalController implements Initializable{
 
     @FXML
     private ImageView btn_ng;
@@ -50,9 +53,15 @@ public class PantallaPrincipalController {
     @FXML
     private ImageView gameMode;
 
-    private GameMode gm = GameMode.PLAYERVSCPU;
-    private boolean timer = false;
-
+    private GameMode gm;
+    private boolean timer;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        gm = GameMode.PLAYERVSCPU;
+        timer = false;
+    }
+    
     @FXML
     private void mouseReleased(MouseEvent event) {
         btn_ng.setEffect(new DropShadow());
@@ -213,7 +222,6 @@ public class PantallaPrincipalController {
             } catch (IOException ex) {
                 Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
                 a.show();
-                ex.printStackTrace();
             }
 
         } else {
@@ -227,7 +235,6 @@ public class PantallaPrincipalController {
             } catch (IOException ex) {
                 Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
                 a.show();
-                ex.printStackTrace();
             }
 
         }

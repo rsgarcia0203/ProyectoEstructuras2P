@@ -26,7 +26,6 @@ import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -42,7 +41,6 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -94,10 +92,11 @@ public class PantallaJuegoController implements Initializable {
     private ImageView back_btn;
 
     private int segundos;
-    private int turno;
     private Jugador jugadorActual;
     private Timeline timer;
+    private Timeline CPUtimer;
     private Tablero tablero;
+    private int CPUtime;
 
     @FXML
     private Pane pane1;
@@ -117,7 +116,6 @@ public class PantallaJuegoController implements Initializable {
     private Pane pane8;
     @FXML
     private Pane pane9;
-    private Tree<Tablero> arbol;
     @FXML
     private HBox paneP1;
     @FXML
@@ -136,6 +134,7 @@ public class PantallaJuegoController implements Initializable {
 
         this.jugadorActual = Partida.jugadorUno;
         this.tablero = Partida.tablero;
+        this.CPUtime = 6;
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
             P1name.setText("JUGADOR");
@@ -183,15 +182,21 @@ public class PantallaJuegoController implements Initializable {
 
         if (Partida.gameMode != GameMode.CPUVSCPU) {
             if (verifyCPU() == true) {
-                jugadaCPU(6);
+                jugadaCPU();
             }
+        } else {
+            jugadaCPU(6);
+            pane1.setDisable(true);
+            pane2.setDisable(true);
+            pane3.setDisable(true);
+            pane4.setDisable(true);
+            pane5.setDisable(true);
+            pane6.setDisable(true);
+            pane7.setDisable(true);
+            pane8.setDisable(true);
+            pane9.setDisable(true);
         }
-    }
 
-    public void setTablero(Tablero tablero) {
-        this.tablero = tablero;
-        this.turno = 1;
-        this.arbol = Partida.generarArbol(tablero);
     }
 
     private void cambiarTurno() {
@@ -203,10 +208,10 @@ public class PantallaJuegoController implements Initializable {
             jugadorActual = Partida.jugadorUno;
         }
 
-        segundos = 10;
+        segundos = 11;
 
-        if (jugadorActual == Partida.jugadorUno) {
-            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #65C0FF, white);");
+        if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
+            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
             paneP2.setStyle("");
 
             paneP2.setOpacity(0.5);
@@ -219,26 +224,51 @@ public class PantallaJuegoController implements Initializable {
             paneP2.setOpacity(1);
         }
 
-        if (verifyCPU() == true) {
-            jugadaCPU(6);
+        if (Partida.gameMode != GameMode.CPUVSCPU) {
+            if (verifyCPU() == true) {
+                jugadaCPU();
+            }
+        } else {
+            endGameCPU();
+            jugadaCPU(4);
         }
+
     }
 
-    private void jugadaCPU(int tiempo) {
-        Random rd = new Random();
-        int tempo = rd.nextInt(tiempo);
-
+    private void jugadaCPU() {
         Tablero bestPlay = Partida.mejorJugada(tablero);
         int[] pos = bestPlay.getUltimaPosicion();
         visualiceToken(pos[0], pos[1], jugadorActual);
         this.tablero.actualizarTablero(pos[0], pos[1]);
+        endGame();
         cambiarTurno();
     }
 
-    private void tiempoCPU(int tiempo) {
-        timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarTimers()));
-        timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
+    private void jugadaCPU(int time) {
+        CPUtime = time;
+        CPUtimer = new Timeline(new KeyFrame(Duration.seconds(2), e -> actualizarTimerCPU()));
+        CPUtimer.setCycleCount(Timeline.INDEFINITE);
+        CPUtimer.play();
+    }
+
+    private void actualizarTimerCPU() {
+        endGameCPU();
+
+        if (CPUtime > 0) {
+            CPUtime--;
+        } else {
+            CPUtimer.stop();
+            try {
+                Tablero bestPlay = Partida.mejorJugada(tablero);
+                int[] pos = bestPlay.getUltimaPosicion();
+                visualiceToken(pos[0], pos[1], jugadorActual);
+                this.tablero.actualizarTablero(pos[0], pos[1]);
+                cambiarTurno();
+            } catch (NullPointerException ex) {
+                CPUtimer.stop();
+            }
+        }
+
     }
 
     private boolean verifyCPU() {
@@ -258,7 +288,7 @@ public class PantallaJuegoController implements Initializable {
 
     private void actualizarTimers() {
 
-        if (segundos <= 10 && segundos > 0) {
+        if (segundos <= 11 && segundos > 0) {
             segundos--;
         }
 
@@ -266,6 +296,8 @@ public class PantallaJuegoController implements Initializable {
 
         if (segundos == 0) {
             this.automaticPlay(jugadorActual);
+            Sonidos.click();
+            endGame();
             cambiarTurno();
         }
 
@@ -273,13 +305,48 @@ public class PantallaJuegoController implements Initializable {
 
     private void endGame() {
 
-        if (!tablero.coincidence().equals("")) {
+        if (!tablero.coincidence().equals("")) {           
+            if(Partida.xtreme == true){
+                timer.stop();
+            }         
             Sonidos.win();
             toMain();
         } else if (tablero.isFull()) {
+            if(Partida.xtreme == true){
+                timer.stop();
+            }
             Sonidos.lose();
             toMain();
         }
+    }
+
+    private void endGameCPU() {
+        if (!tablero.coincidence().equals("")) {
+            CPUtimer.stop();
+            Sonidos.win();
+
+            try {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
+                App.setRoot(fxmlloader);
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+            }
+
+        } else if (tablero.isFull()) {
+            CPUtimer.stop();
+            Sonidos.lose();
+
+            try {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
+                App.setRoot(fxmlloader);
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+            }
+
+        }
+
     }
 
     private void toMain() {
@@ -309,14 +376,6 @@ public class PantallaJuegoController implements Initializable {
             return 2;
         }
 
-    }
-
-    public void visualiceTable(Tablero tablero) {
-        int[] pos = tablero.getUltimaPosicion();
-
-        if (turno == 2) {
-            visualiceToken(pos[0], pos[1], jugadorActual);
-        }
     }
 
     private void visualiceToken(int fila, int columna, Jugador player) {
@@ -485,8 +544,12 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private void mouseHover(MouseEvent event) {
-        this.setImagePlayer(jugadorActual);
-        Sonidos.hover();
+
+        if (this.jugadorActual.getType() != Type.PLAYER1 || this.jugadorActual.getType() != Type.PLAYER2) {
+            this.setImagePlayer(jugadorActual);
+            Sonidos.hover();
+        }
+
     }
 
     @FXML
@@ -569,12 +632,10 @@ public class PantallaJuegoController implements Initializable {
         ft.play();
     }
 
-    @FXML
-    private void selectPane(MouseEvent event) {
-
-    }
-
     private void automaticPlay(Jugador jugadorActual) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Tablero jugadaAutomatica = Partida.jugadaAutomatica(tablero);
+        int[] pos = jugadaAutomatica.getUltimaPosicion();
+        visualiceToken(pos[0], pos[1], jugadorActual);
+        this.tablero.actualizarTablero(pos[0], pos[1]);
     }
 }

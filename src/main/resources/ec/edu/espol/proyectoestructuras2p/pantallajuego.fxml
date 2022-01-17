@@ -106,7 +106,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Pane fx:id="pane1" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane1" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha11" fitHeight="120.0" fitWidth="127.0" layoutX="1.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -115,7 +115,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane2" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane2" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha12" fitHeight="120.0" fitWidth="127.0" layoutX="6.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -124,7 +124,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane3" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane3" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha13" fitHeight="120.0" fitWidth="127.0" layoutX="10.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -133,7 +133,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane6" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane6" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha23" fitHeight="120.0" fitWidth="127.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -142,7 +142,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane5" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane5" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha22" fitHeight="120.0" fitWidth="127.0" layoutX="7.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -151,7 +151,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane4" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane4" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha21" fitHeight="120.0" fitWidth="127.0" layoutX="1.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -160,7 +160,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane7" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane7" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha31" fitHeight="120.0" fitWidth="127.0" layoutX="1.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -169,7 +169,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane8" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane8" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha32" fitHeight="120.0" fitWidth="127.0" layoutX="6.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -178,7 +178,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="pane9" onMouseClicked="#selectPane" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Pane fx:id="pane9" onMouseEntered="#mouseHover" onMouseExited="#mouseNotHover" onMousePressed="#mouseClick" onMouseReleased="#mouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
                         <ImageView fx:id="ficha33" fitHeight="120.0" fitWidth="127.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>

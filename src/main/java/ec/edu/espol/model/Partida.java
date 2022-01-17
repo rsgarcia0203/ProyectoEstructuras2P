@@ -175,7 +175,10 @@ public abstract class Partida {
         
         for (int i = 0; i < treeGenerado.getRoot().getChildren().size(); i++) {
             Tablero t = treeGenerado.getRoot().getChildren().get(i).getRoot().getContent();
-            
+            if(t.coincidence().length()!=0){
+                bestPlay = t;
+                break;
+            }
             if (i == 0) {
                 bestPlay = t;
             } else {

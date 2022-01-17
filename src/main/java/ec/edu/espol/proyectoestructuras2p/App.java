@@ -53,9 +53,9 @@ public class App extends Application {
         //PRUEBA DEL METODO MEJOR JUGADA
         System.out.println("TABLERO INICIAL");
         Tablero tablero = new Tablero();
-        tablero.getTable()[0][0]='X';
+        tablero.getTable()[0][0]='O';
         tablero.getTable()[0][1]='X';
-        tablero.getTable()[0][2]='O';
+        tablero.getTable()[0][2]='X';
         tablero.getTable()[1][0]='-';
         tablero.getTable()[1][1]='O';
         tablero.getTable()[1][2]='-';

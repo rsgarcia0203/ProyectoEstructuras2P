@@ -134,7 +134,7 @@ public class PantallaJuegoController implements Initializable {
 
         this.jugadorActual = Partida.jugadorUno;
         this.tablero = Partida.tablero;
-        this.CPUtime = 6;
+        this.CPUtime = 3;
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
             P1name.setText("JUGADOR");
@@ -185,7 +185,7 @@ public class PantallaJuegoController implements Initializable {
                 jugadaCPU();
             }
         } else {
-            jugadaCPU(6);
+            jugadaCPU(3);
             pane1.setDisable(true);
             pane2.setDisable(true);
             pane3.setDisable(true);
@@ -230,18 +230,23 @@ public class PantallaJuegoController implements Initializable {
             }
         } else {
             endGameCPU();
-            jugadaCPU(4);
+            jugadaCPU(3);
         }
 
     }
 
     private void jugadaCPU() {
-        Tablero bestPlay = Partida.mejorJugada(tablero);
-        int[] pos = bestPlay.getUltimaPosicion();
-        visualiceToken(pos[0], pos[1], jugadorActual);
-        this.tablero.actualizarTablero(pos[0], pos[1]);
-        endGame();
-        cambiarTurno();
+        try {
+            Tablero bestPlay = Partida.mejorJugada(tablero);
+            int[] pos = bestPlay.getUltimaPosicion();
+            visualiceToken(pos[0], pos[1], jugadorActual);
+            this.tablero.actualizarTablero(pos[0], pos[1]);
+            endGame();
+            cambiarTurno();
+
+        } catch (NullPointerException ex) {
+
+        }
     }
 
     private void jugadaCPU(int time) {
@@ -305,14 +310,14 @@ public class PantallaJuegoController implements Initializable {
 
     private void endGame() {
 
-        if (!tablero.coincidence().equals("")) {           
-            if(Partida.xtreme == true){
+        if (!tablero.coincidence().equals("")) {
+            if (Partida.xtreme == true) {
                 timer.stop();
-            }         
+            }
             Sonidos.win();
             toMain();
         } else if (tablero.isFull()) {
-            if(Partida.xtreme == true){
+            if (Partida.xtreme == true) {
                 timer.stop();
             }
             Sonidos.lose();
@@ -384,12 +389,15 @@ public class PantallaJuegoController implements Initializable {
 
             if (columna == 0) {
                 ficha11.setImage(new Image(player.getToken()));
+                clickAnimation(ficha11);
                 pane1.setDisable(true);
             } else if (columna == 1) {
                 ficha12.setImage(new Image(player.getToken()));
+                clickAnimation(ficha12);
                 pane2.setDisable(true);
             } else if (columna == 2) {
                 ficha13.setImage(new Image(player.getToken()));
+                clickAnimation(ficha13);
                 pane3.setDisable(true);
             }
 
@@ -397,12 +405,15 @@ public class PantallaJuegoController implements Initializable {
 
             if (columna == 0) {
                 ficha21.setImage(new Image(player.getToken()));
+                clickAnimation(ficha21);
                 pane4.setDisable(true);
             } else if (columna == 1) {
                 ficha22.setImage(new Image(player.getToken()));
+                clickAnimation(ficha22);
                 pane5.setDisable(true);
             } else if (columna == 2) {
                 ficha23.setImage(new Image(player.getToken()));
+                clickAnimation(ficha23);
                 pane6.setDisable(true);
             }
 
@@ -410,12 +421,15 @@ public class PantallaJuegoController implements Initializable {
 
             if (columna == 0) {
                 ficha31.setImage(new Image(player.getToken()));
+                clickAnimation(ficha31);
                 pane7.setDisable(true);
             } else if (columna == 1) {
                 ficha32.setImage(new Image(player.getToken()));
+                clickAnimation(ficha32);
                 pane8.setDisable(true);
             } else if (columna == 2) {
                 ficha33.setImage(new Image(player.getToken()));
+                clickAnimation(ficha33);
                 pane9.setDisable(true);
             }
 
@@ -557,6 +571,7 @@ public class PantallaJuegoController implements Initializable {
 
         if (pane1.isPressed() && !pane1.isDisabled()) {
             ficha11.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha11);
             ficha11.setOpacity(0.5);
             pane1.setDisable(true);
             this.tablero.actualizarTablero(0, 0);
@@ -564,6 +579,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane2.isPressed() && !pane2.isDisabled()) {
             ficha12.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha12);
             ficha12.setOpacity(0.5);
             pane2.setDisable(true);
             this.tablero.actualizarTablero(0, 1);
@@ -571,6 +587,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane3.isPressed() && !pane3.isDisabled()) {
             ficha13.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha13);
             ficha13.setOpacity(0.5);
             pane3.setDisable(true);
             this.tablero.actualizarTablero(0, 2);
@@ -578,6 +595,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane4.isPressed() && !pane4.isDisabled()) {
             ficha21.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha21);
             ficha21.setOpacity(0.5);
             pane4.setDisable(true);
             this.tablero.actualizarTablero(1, 0);
@@ -585,6 +603,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane5.isPressed() && !pane5.isDisabled()) {
             ficha22.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha22);
             ficha22.setOpacity(0.5);
             pane5.setDisable(true);
             this.tablero.actualizarTablero(1, 1);
@@ -592,6 +611,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane6.isPressed() && !pane6.isDisabled()) {
             ficha23.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha23);
             ficha23.setOpacity(0.5);
             pane6.setDisable(true);
             this.tablero.actualizarTablero(1, 2);
@@ -599,6 +619,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane7.isPressed() && !pane7.isDisabled()) {
             ficha31.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha31);
             ficha31.setOpacity(0.5);
             pane7.setDisable(true);
             this.tablero.actualizarTablero(2, 0);
@@ -606,6 +627,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane8.isPressed() && !pane8.isDisabled()) {
             ficha32.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha32);
             ficha32.setOpacity(0.5);
             pane8.setDisable(true);
             this.tablero.actualizarTablero(2, 1);
@@ -613,6 +635,7 @@ public class PantallaJuegoController implements Initializable {
             cambiarTurno();
         } else if (pane9.isPressed() && !pane9.isDisabled()) {
             ficha33.setImage(new Image(this.jugadorActual.getToken()));
+            clickAnimation(ficha33);
             ficha33.setOpacity(0.5);
             pane9.setDisable(true);
             this.tablero.actualizarTablero(2, 2);
@@ -624,11 +647,11 @@ public class PantallaJuegoController implements Initializable {
     }
 
     private void clickAnimation(ImageView imv) {
-        FadeTransition ft = new FadeTransition(Duration.millis(2000), imv);
+        FadeTransition ft = new FadeTransition(Duration.millis(500), imv);
         ft.setFromValue(0.1);
         ft.setToValue(1);
-        ft.setCycleCount(Timeline.INDEFINITE);
-        ft.setAutoReverse(true);
+        //ft.setCycleCount(Timeline.INDEFINITE);
+        ft.setAutoReverse(false);
         ft.play();
     }
 

@@ -91,7 +91,7 @@ public class PantallaJuegoController implements Initializable {
     private ImageView vertical3;
     @FXML
     private ImageView back_btn;
-    
+
     private int segundos;
     private int turno;
     private Jugador jugadorActual;
@@ -129,42 +129,44 @@ public class PantallaJuegoController implements Initializable {
     private HBox paneP2;
     @FXML
     private Text P2name;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         this.jugadorActual = Partida.jugadorUno;
-        
-        if(Partida.gameMode == GameMode.PLAYERVSCPU){
+
+        if (Partida.gameMode == GameMode.PLAYERVSCPU) {
             P1name.setText("JUGADOR");
             P2name.setText("CPU");
         }
-        
-        if(Partida.gameMode == GameMode.PLAYERVSPLAYER){
+
+        if (Partida.gameMode == GameMode.PLAYERVSPLAYER) {
             P1name.setText("JUGADOR 1");
             P2name.setText("JUGADOR 2");
         }
-        
-        if(Partida.gameMode == GameMode.CPUVSCPU){
+
+        if (Partida.gameMode == GameMode.CPUVSCPU) {
             P1name.setText("CPU 1");
             P2name.setText("CPU 2");
         }
-        
-        if(Partida.xtreme == true){
+
+        if (Partida.xtreme == true) {
+            segundos = 10;
+            time.setText(String.format("0%d:%02d", 0, segundos));
             timerPane.setDisable(false);
             timerPane.setVisible(true);
-            
+
             timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarTimers()));
             timer.setCycleCount(Timeline.INDEFINITE);
             timer.play();
-            
+
         } else {
             timerPane.setDisable(true);
             timerPane.setVisible(false);
         }
-        
-        if (jugadorActual == Partida.jugadorUno) {
-            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #65C0FF, white);");
+
+        if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
+            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
             paneP2.setStyle("");
 
             paneP2.setOpacity(0.5);
@@ -184,15 +186,17 @@ public class PantallaJuegoController implements Initializable {
         this.turno = 1;
         this.arbol = Partida.generarArbol(tablero);
     }
-    
+
     private void cambiarTurno() {
-        
-    //Solo realiza cambio de turno cuando se ha realizado la jugada
+
+        //Solo realiza cambio de turno cuando se ha realizado la jugada
         if (jugadorActual == Partida.jugadorUno) {
             jugadorActual = Partida.jugadorDos;
         } else if (jugadorActual == Partida.jugadorDos) {
             jugadorActual = Partida.jugadorUno;
         }
+
+        segundos = 10;
 
         if (jugadorActual == Partida.jugadorUno) {
             paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #65C0FF, white);");
@@ -211,24 +215,18 @@ public class PantallaJuegoController implements Initializable {
     }
 
     private void actualizarTimers() {
-        
-        if (getTurno() == 1) {
-            segundos = 10;
-            time.setText(String.format("0%d:%02d", 0, segundos));
-            
-            if (segundos == 0) {
-                this.automaticPlay();
-            }
-            
-        } else {          
-            segundos = 10;
-            time.setText(String.format("0%d:%02d", 0, segundos));
-            
-            if (segundos == 0) {
-                this.automaticPlay();
-            }
+
+        if (segundos <= 10 && segundos > 0) {
+            segundos--;
         }
-        
+
+        time.setText(String.format("0%d:%02d", 0, segundos));
+
+        if (segundos == 0) {
+            this.automaticPlay(jugadorActual);
+            cambiarTurno();
+        }
+
     }
 
     private int getTurno() {
@@ -241,60 +239,59 @@ public class PantallaJuegoController implements Initializable {
 
     }
 
-    
     public void visualiceTable(Tablero tablero) {
         int[] pos = tablero.getUltimaPosicion();
-        
-        if(turno == 2){
-            visualiceToken(pos[0], pos[1], jugadorActual);          
+
+        if (turno == 2) {
+            visualiceToken(pos[0], pos[1], jugadorActual);
         }
     }
 
     private void visualiceToken(int fila, int columna, Jugador player) {
-        
+
         if (fila == 0) {
-            
-            if(columna == 0){
+
+            if (columna == 0) {
                 ficha11.setImage(new Image(player.getToken()));
                 pane1.setDisable(true);
-            } else if(columna == 1){
+            } else if (columna == 1) {
                 ficha12.setImage(new Image(player.getToken()));
                 pane2.setDisable(true);
-            } else if(columna == 2){
+            } else if (columna == 2) {
                 ficha13.setImage(new Image(player.getToken()));
                 pane3.setDisable(true);
             }
-            
+
         } else if (fila == 1) {
 
-            if(columna == 0){
+            if (columna == 0) {
                 ficha21.setImage(new Image(player.getToken()));
                 pane4.setDisable(true);
-            } else if(columna == 1){
+            } else if (columna == 1) {
                 ficha22.setImage(new Image(player.getToken()));
                 pane5.setDisable(true);
-            } else if(columna == 2){
+            } else if (columna == 2) {
                 ficha23.setImage(new Image(player.getToken()));
                 pane6.setDisable(true);
             }
 
         } else if (fila == 2) {
-            
-            if(columna == 0){
+
+            if (columna == 0) {
                 ficha31.setImage(new Image(player.getToken()));
                 pane7.setDisable(true);
-            } else if(columna == 1){
+            } else if (columna == 1) {
                 ficha32.setImage(new Image(player.getToken()));
                 pane8.setDisable(true);
-            } else if(columna == 2){
+            } else if (columna == 2) {
                 ficha33.setImage(new Image(player.getToken()));
                 pane9.setDisable(true);
             }
 
         }
-        
+
     }
-    
+
     @FXML
     private void mouseReleased(MouseEvent event) {
         back_btn.setEffect(new DropShadow());
@@ -442,7 +439,7 @@ public class PantallaJuegoController implements Initializable {
 
     }
 
-    private void automaticPlay() {
+    private void automaticPlay(Jugador jugadorActual) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

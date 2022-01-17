@@ -20,14 +20,12 @@ package ec.edu.espol.model;
  * @author rsgar
  */
 public enum Type {
-    PLAYER1("ec/edu/espol/img/clear.png", "JUGADOR 1"), PLAYER2("ec/edu/espol/img/circle.png", "JUGADOR 2"),CPU1("ec/edu/espol/img/clear.png", "CPU 1"), CPU2("ec/edu/espol/img/circle.png", "COU 2");
+    PLAYER1("ec/edu/espol/img/clear.png"), PLAYER2("ec/edu/espol/img/circle.png"),CPU1("ec/edu/espol/img/clear.png"), CPU2("ec/edu/espol/img/circle.png");
     
     public final String ruta;
-    public final String name;
 
-    private Type(String ruta, String name) {
+    private Type(String ruta) {
         this.ruta = ruta;
-        this.name = name;
     }
         
 }

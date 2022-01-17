@@ -61,7 +61,7 @@ public abstract class Partida {
             jugadorDos = new Jugador(Type.CPU2);          
         } else {
             jugadorUno = new Jugador(Type.CPU1);
-            jugadorDos = new Jugador(Type.PLAYER1);
+            jugadorDos = new Jugador(Type.PLAYER2);
         }
         
         gameMode = GameMode.PLAYERVSCPU;
@@ -98,7 +98,7 @@ public abstract class Partida {
         }
         
         gameMode = GameMode.CPUVSCPU;
-        tablero = new Tablero(startFirst);
+        tablero = new Tablero(true);
     }
     
     //se generan los hijos de un tablero

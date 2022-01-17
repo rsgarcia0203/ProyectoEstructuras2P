@@ -192,42 +192,42 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </GridPane>
-            <ImageView fx:id="diagonal1" fitHeight="308.0" fitWidth="342.0" layoutX="73.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="diagonal1" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="diagonal2" fitHeight="360.0" fitWidth="323.0" layoutX="59.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" visible="false">
+            <ImageView fx:id="diagonal2" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="horizontal1" fitHeight="287.0" fitWidth="289.0" layoutX="96.0" layoutY="-48.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
+            <ImageView fx:id="horizontal1" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="horizontal2" fitHeight="287.0" fitWidth="289.0" layoutX="89.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
+            <ImageView fx:id="horizontal2" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="horizontal3" fitHeight="287.0" fitWidth="289.0" layoutX="89.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
+            <ImageView fx:id="horizontal3" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="vertical1" fitHeight="273.0" fitWidth="269.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
+            <ImageView fx:id="vertical1" fitHeight="540.0" fitWidth="417.0" layoutX="-60.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="vertical2" fitHeight="273.0" fitWidth="269.0" layoutX="98.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
+            <ImageView fx:id="vertical2" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="vertical3" fitHeight="273.0" fitWidth="269.0" layoutX="198.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
+            <ImageView fx:id="vertical3" fitHeight="540.0" fitWidth="417.0" layoutX="210.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
                <image>
                   <Image url="@../img/linea-diagonal.png" />
                </image>

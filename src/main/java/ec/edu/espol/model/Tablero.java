@@ -355,6 +355,7 @@ public class Tablero {
                 }
             }
         }
+        this.turno = !this.turno;
     }
 
     @Override

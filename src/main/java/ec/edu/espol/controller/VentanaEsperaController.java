@@ -22,6 +22,10 @@ import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +37,9 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -68,6 +75,12 @@ public class VentanaEsperaController implements Initializable {
     private ImageView btn_back;
     private boolean timer = false;
     private GameMode gm;
+    @FXML
+    private Pane opacity_pane;
+    @FXML
+    private Pane cont_pane;
+    @FXML
+    private VBox confirmation_pane;
 
     /**
      * Initializes the controller class.
@@ -163,28 +176,31 @@ public class VentanaEsperaController implements Initializable {
 
         if (gm == GameMode.PLAYERVSPLAYER) {
             Partida.nuevaPartidaDosJugadores(true, timer);
-            
-            try {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-                App.setRoot(fxmlloader);             
-                Sonidos.goButton();
-            } catch (IOException ex) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-                a.show();
-            }
-
+            startGame();
         } else {
             Partida.nuevaPartidaUnJugador(true, timer);
+            startGame();
+        }
+    }
 
-            try {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-                App.setRoot(fxmlloader);
-                Sonidos.goButton();
-            } catch (IOException ex) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-                a.show();
-            }
+    private void startGame() {
+        Sonidos.goButton();
+        moveAnimation(confirmation_pane);
+        disappearAnimation(cont_pane);
+        disappearAnimation(opacity_pane);
+        Timeline tl = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarPantalla()));
+        tl.setCycleCount(1);
+        tl.setAutoReverse(false);
+        tl.play();
+    }
 
+    private void actualizarPantalla() {
+        try {
+            FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
+            App.setRoot(fxmlloader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+            a.show();
         }
     }
 
@@ -193,28 +209,10 @@ public class VentanaEsperaController implements Initializable {
 
         if (gm == GameMode.PLAYERVSPLAYER) {
             Partida.nuevaPartidaDosJugadores(false, timer);
-
-            try {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-                App.setRoot(fxmlloader);
-                Sonidos.goButton();
-            } catch (IOException ex) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-                a.show();
-            }
-
+            startGame();
         } else {
             Partida.nuevaPartidaUnJugador(false, timer);
-
-            try {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-                App.setRoot(fxmlloader);
-                Sonidos.goButton();
-            } catch (IOException ex) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-                a.show();
-            }
-
+            startGame();
         }
 
     }
@@ -241,5 +239,21 @@ public class VentanaEsperaController implements Initializable {
         ficha31.setImage(null);
         ficha32.setImage(null);
         ficha33.setImage(null);
+    }
+
+    private void moveAnimation(VBox vbox) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(700), vbox);
+        tt.setToY(-150f);
+        tt.setCycleCount(1);
+        tt.setAutoReverse(false);
+        tt.play();
+    }
+
+    private void disappearAnimation(Pane pane) {
+        FadeTransition ft = new FadeTransition(Duration.millis(900), pane);
+        ft.setFromValue(pane.getOpacity());
+        ft.setToValue(0);
+        ft.setAutoReverse(false);
+        ft.play();
     }
 }

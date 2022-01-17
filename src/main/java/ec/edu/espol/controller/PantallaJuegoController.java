@@ -16,6 +16,7 @@
 package ec.edu.espol.controller;
 
 import TDA.Tree;
+import ec.edu.espol.model.GameMode;
 import ec.edu.espol.model.Jugador;
 import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
@@ -134,9 +135,21 @@ public class PantallaJuegoController implements Initializable {
         
         this.jugadorActual = Partida.jugadorUno;
         
-        P1name.setText(Partida.jugadorUno.getType().name);
-        P2name.setText(Partida.jugadorDos.getType().name);
-                
+        if(Partida.gameMode == GameMode.PLAYERVSCPU){
+            P1name.setText("JUGADOR");
+            P2name.setText("CPU");
+        }
+        
+        if(Partida.gameMode == GameMode.PLAYERVSPLAYER){
+            P1name.setText("JUGADOR 1");
+            P2name.setText("JUGADOR 2");
+        }
+        
+        if(Partida.gameMode == GameMode.CPUVSCPU){
+            P1name.setText("CPU 1");
+            P2name.setText("CPU 2");
+        }
+        
         if(Partida.xtreme == true){
             timerPane.setDisable(false);
             timerPane.setVisible(true);

@@ -16,15 +16,11 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.model.GameMode;
-import ec.edu.espol.model.Jugador;
 import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
-import ec.edu.espol.model.Tablero;
-import ec.edu.espol.model.Type;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -207,27 +203,36 @@ public class PantallaPrincipalController {
 
     @FXML
     private void newGame(MouseEvent event) {
-        try {
 
-            if (gm == GameMode.CPUVSCPU) {
+        if (gm == GameMode.CPUVSCPU) {
+            Partida.nuevaPartidaDosCPU();
+
+            try {
                 FXMLLoader fxmlloader = App.loadFXMLoader("PantallaJuego");
                 App.setRoot(fxmlloader);
-                Partida.nuevaPartidaDosCPU();
-            } else {
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+                ex.printStackTrace();
+            }
+
+        } else {
+
+            try {
                 FXMLLoader fxmlloader = App.loadFXMLoader("VentanaEspera");
                 App.setRoot(fxmlloader);
                 VentanaEsperaController vec = fxmlloader.getController();
                 vec.setTimer(timer);
                 vec.setGameMode(gm);
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+                ex.printStackTrace();
             }
 
-            Sonidos.goButton();
-
-        } catch (IOException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-            a.show();
-            ex.printStackTrace();
         }
+
+        Sonidos.goButton();
     }
 
 }

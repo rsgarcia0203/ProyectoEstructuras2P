@@ -29,6 +29,7 @@ public abstract class Partida {
     public static Tablero tablero;
     public static boolean startFirst;
     public static boolean xtreme;
+    public static GameMode gameMode;
 
     private static final Comparator<Tablero> cmp = (t1, t2) -> {
 
@@ -63,6 +64,7 @@ public abstract class Partida {
             jugadorDos = new Jugador(Type.PLAYER1);
         }
         
+        gameMode = GameMode.PLAYERVSCPU;
         xtreme = xtreme_mode;
         tablero = new Tablero(startFirst);
     }
@@ -76,6 +78,8 @@ public abstract class Partida {
             jugadorUno = new Jugador(Type.PLAYER2);
             jugadorDos = new Jugador(Type.PLAYER1);
         }
+        
+        gameMode = GameMode.PLAYERVSPLAYER;
         xtreme = xtreme_mode;
         tablero = new Tablero(startFirst);
     }
@@ -93,6 +97,7 @@ public abstract class Partida {
             jugadorDos = new Jugador(Type.CPU1);  
         }
         
+        gameMode = GameMode.CPUVSCPU;
         tablero = new Tablero(startFirst);
     }
     

@@ -16,11 +16,8 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.model.GameMode;
-import ec.edu.espol.model.Jugador;
 import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
-import ec.edu.espol.model.Tablero;
-import ec.edu.espol.model.Type;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
@@ -67,7 +64,7 @@ public class VentanaEsperaController implements Initializable {
     @FXML
     private Button btnP2;
     @FXML
-    
+
     private ImageView btn_back;
     private boolean timer = false;
     private GameMode gm;
@@ -77,23 +74,22 @@ public class VentanaEsperaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+
     }
-    
-    public void setTimer(boolean timer){
+
+    public void setTimer(boolean timer) {
         this.timer = timer;
     }
-    
-    public void setGameMode(GameMode gm){
+
+    public void setGameMode(GameMode gm) {
         this.gm = gm;
-        
-        if(gm == GameMode.PLAYERVSCPU){
+
+        if (gm == GameMode.PLAYERVSCPU) {
             btnP1.setText("YO");
             btnP2.setText("CPU");
         }
-        
-        if(gm == GameMode.PLAYERVSPLAYER){
+
+        if (gm == GameMode.PLAYERVSPLAYER) {
             btnP1.setPrefSize(160, 50);
             btnP2.setPrefSize(160, 50);
             btnP1.setText("JUGADOR 1");
@@ -101,7 +97,7 @@ public class VentanaEsperaController implements Initializable {
         }
 
     }
-    
+
     @FXML
     private void mouseReleased(MouseEvent event) {
         btnP1.setEffect(new DropShadow());
@@ -124,26 +120,26 @@ public class VentanaEsperaController implements Initializable {
         if (btnP2.isHover()) {
             this.setImages("ec/edu/espol/img/circle.png");
         }
-        
-        if (btn_back.isHover()){
+
+        if (btn_back.isHover()) {
             btn_back.setOpacity(1);
         }
-        
+
         Sonidos.hover();
     }
 
     @FXML
     private void back(MouseEvent event) {
-        
-        try {         
-            FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");                  
+
+        try {
+            FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
             App.setRoot(fxmlloader);
             Sonidos.back();
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
         }
-        
+
     }
 
     @FXML
@@ -155,8 +151,8 @@ public class VentanaEsperaController implements Initializable {
         if (btnP2.isPressed()) {
             btnP2.setEffect(new InnerShadow());
         }
-        
-        if (btn_back.isPressed()){
+
+        if (btn_back.isPressed()) {
             btn_back.setOpacity(0.55);
             btn_back.setEffect(new InnerShadow());
         }
@@ -164,32 +160,63 @@ public class VentanaEsperaController implements Initializable {
 
     @FXML
     private void start1(MouseEvent event) {
-        try {
-            FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
-            PantallaJuegoController pjc = fxmlloader.getController();
-            App.setRoot(fxmlloader);
+
+        if (gm == GameMode.PLAYERVSPLAYER) {
+            Partida.nuevaPartidaDosJugadores(true, timer);
+            
+            try {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
+                App.setRoot(fxmlloader);             
+                Sonidos.goButton();
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+            }
+
+        } else {
             Partida.nuevaPartidaUnJugador(true, timer);
-            Sonidos.goButton();   
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-            a.show();
+
+            try {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
+                App.setRoot(fxmlloader);
+                Sonidos.goButton();
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+            }
+
         }
     }
 
     @FXML
     private void start2(MouseEvent event) {
-        try {         
-            FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");                  
-            PantallaJuegoController pjc = fxmlloader.getController();
-            App.setRoot(fxmlloader);
+
+        if (gm == GameMode.PLAYERVSPLAYER) {
+            Partida.nuevaPartidaDosJugadores(false, timer);
+
+            try {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
+                App.setRoot(fxmlloader);
+                Sonidos.goButton();
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+            }
+
+        } else {
             Partida.nuevaPartidaUnJugador(false, timer);
-            Sonidos.goButton();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-            a.show();
+
+            try {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallajuego");
+                App.setRoot(fxmlloader);
+                Sonidos.goButton();
+            } catch (IOException ex) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+                a.show();
+            }
+
         }
+
     }
 
     private void setImages(String ruta) {
@@ -203,8 +230,8 @@ public class VentanaEsperaController implements Initializable {
         ficha32.setImage(new Image(ruta));
         ficha33.setImage(new Image(ruta));
     }
-    
-    private void clearImages(){
+
+    private void clearImages() {
         ficha11.setImage(null);
         ficha12.setImage(null);
         ficha13.setImage(null);

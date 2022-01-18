@@ -275,7 +275,36 @@ public class PantallaJuegoController implements Initializable {
         }
 
     }
-
+    
+    private void visualiceDiagonal(Tablero tablero){
+        
+        if (tablero.coincidence().equals("fila0")){
+            horizontal1.setVisible(true);
+            coincidenceAnimation(horizontal1);
+        } else if (tablero.coincidence().equals("fila1")){
+            horizontal2.setVisible(true);
+            coincidenceAnimation(horizontal2);
+        } else if (tablero.coincidence().equals("fila2")){
+            horizontal3.setVisible(true);
+            coincidenceAnimation(horizontal3);
+        } else if (tablero.coincidence().equals("columna0")){
+            vertical1.setVisible(true);
+            coincidenceAnimation(vertical1);
+        } else if (tablero.coincidence().equals("columna1")){
+            vertical2.setVisible(true);
+            coincidenceAnimation(vertical2);
+        } else if (tablero.coincidence().equals("columna2")){
+            vertical3.setVisible(true);
+            coincidenceAnimation(vertical3);
+        } else if (tablero.coincidence().equals("diagonal1")){
+            diagonal2.setVisible(true);
+            coincidenceAnimation(diagonal1);
+        } else if (tablero.coincidence().equals("diagonal2")){
+            diagonal1.setVisible(true);
+            coincidenceAnimation(diagonal2);
+        }
+    }
+    
     private boolean verifyCPU() {
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
@@ -308,77 +337,57 @@ public class PantallaJuegoController implements Initializable {
 
     }
 
+    public Jugador getJugadorActual() {
+        return this.jugadorActual;
+    }
+
     private void endGame() {
 
         if (!tablero.coincidence().equals("")) {
             if (Partida.xtreme == true) {
                 timer.stop();
             }
+            visualiceDiagonal(tablero);
             Sonidos.win();
-            toMain();
-        } else if (tablero.isFull()) {
+            finalWindow();
+        } else if (tablero.isFull() && tablero.coincidence().equals("")) {
             if (Partida.xtreme == true) {
                 timer.stop();
             }
             Sonidos.lose();
-            toMain();
+            finalWindow();
         }
     }
-
+        
+    private void finalWindow(){
+        Partida.tablero = this.tablero;
+        Timeline tl = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarPantalla()));
+        tl.setCycleCount(1);
+        tl.setAutoReverse(false);
+        tl.play();
+    }
+    
+    private void actualizarPantalla(){
+        try {
+            FXMLLoader fxmlloader = App.loadFXMLoader("VentanaFinal");
+            App.setRoot(fxmlloader);
+            Sonidos.back();
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
+            a.show();
+            ex.printStackTrace();
+        }
+    }
+    
     private void endGameCPU() {
         if (!tablero.coincidence().equals("")) {
             CPUtimer.stop();
             Sonidos.win();
-
-            try {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
-                App.setRoot(fxmlloader);
-            } catch (IOException ex) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-                a.show();
-            }
-
+            toMain();
         } else if (tablero.isFull()) {
             CPUtimer.stop();
             Sonidos.lose();
-
-            try {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
-                App.setRoot(fxmlloader);
-            } catch (IOException ex) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-                a.show();
-            }
-
-        }
-
-    }
-
-    private void toMain() {
-        try {
-            Sonidos.lose();
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de regresar a la pantalla principal?, se perderán todos los datos de la partida actual.");
-            a.setTitle("TIC-TAC-TOE");
-            a.setHeaderText("Confirmación de salida");
-            Optional<ButtonType> resultado = a.showAndWait();
-
-            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
-                App.setRoot(fxmlloader);
-            }
-
-        } catch (IOException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
-            a.show();
-        }
-    }
-
-    private int getTurno() {
-
-        if (jugadorActual == Partida.jugadorUno) {
-            return 1;
-        } else {
-            return 2;
+            toMain();
         }
 
     }
@@ -474,27 +483,21 @@ public class PantallaJuegoController implements Initializable {
             ficha33.setImage(new Image(jugador.getToken()));
         }
     }
-
-    @FXML
-    private void back(MouseEvent event) {
-
+    
+    private void toMain() {
         try {
+            FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
+            App.setRoot(fxmlloader);
             Sonidos.back();
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de regresar a la pantalla principal?, se perderán todos los datos de la partida actual.");
-            a.setTitle("TIC-TAC-TOE");
-            a.setHeaderText("Confirmación de salida");
-            Optional<ButtonType> resultado = a.showAndWait();
-
-            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
-                App.setRoot(fxmlloader);
-            }
-
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
         }
-
+    }
+    
+    @FXML
+    private void back(MouseEvent event) {
+        toMain();
     }
 
     @FXML
@@ -650,7 +653,14 @@ public class PantallaJuegoController implements Initializable {
         FadeTransition ft = new FadeTransition(Duration.millis(500), imv);
         ft.setFromValue(0.1);
         ft.setToValue(1);
-        //ft.setCycleCount(Timeline.INDEFINITE);
+        ft.setAutoReverse(false);
+        ft.play();
+    }
+    
+    private void coincidenceAnimation(ImageView imv) {
+        FadeTransition ft = new FadeTransition(Duration.millis(900), imv);
+        ft.setFromValue(0.1);
+        ft.setToValue(1);
         ft.setAutoReverse(false);
         ft.play();
     }

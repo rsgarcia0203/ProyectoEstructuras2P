@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/ventanafinal.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.VentanaFinalController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/pantallajuego.css">
+         <left>
+            <VBox prefHeight="279.0" prefWidth="68.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <VBox prefHeight="279.0" prefWidth="68.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="600.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="47.0" fitWidth="51.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/undo.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="553.0" fitWidth="468.0" layoutX="48.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tablero.png" />
+                     </image>
+                  </ImageView>
+                  <GridPane alignment="CENTER" layoutX="78.0" layoutY="85.0" prefHeight="427.0" prefWidth="408.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fx:id="ficha11" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" right="10.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha12" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="7.0" right="7.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha13" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="10.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha21" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" right="7.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha31" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" right="7.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha32" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="3.0" right="3.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha22" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="2.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha23" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="8.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="ficha33" fitHeight="120.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="7.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+         </center>
+         <top>
+            <HBox prefHeight="68.0" prefWidth="600.0" spacing="80.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="paneP1" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Text fx:id="P1name" fill="#0d9e00" strokeType="OUTSIDE" strokeWidth="0.0" text="JUGADOR 1">
+                           <font>
+                              <Font name="Bauhaus 93" size="38.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <VBox fx:id="timerPane" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIMER">
+                           <font>
+                              <Font name="Britannic Bold" size="28.0" />
+                           </font>
+                        </Text>
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
+                           <font>
+                              <Font name="Britannic Bold" size="28.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <HBox fx:id="paneP2" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <children>
+                        <Text fx:id="P2name" fill="#dd0000" strokeType="OUTSIDE" strokeWidth="0.0" text="CPU">
+                           <font>
+                              <Font name="Bauhaus 93" size="38.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+      <ImageView fx:id="diagonal1" fitHeight="540.0" fitWidth="417.0" layoutX="143.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="diagonal2" fitHeight="540.0" fitWidth="417.0" layoutX="143.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="horizontal1" fitHeight="410.0" fitWidth="410.0" layoutX="142.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="horizontal2" fitHeight="540.0" fitWidth="417.0" layoutX="142.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="horizontal3" fitHeight="540.0" fitWidth="417.0" layoutX="142.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" rotate="45.0" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vertical1" fitHeight="540.0" fitWidth="417.0" layoutX="5.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vertical2" fitHeight="540.0" fitWidth="417.0" layoutX="145.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vertical3" fitHeight="540.0" fitWidth="417.0" layoutX="280.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0" visible="false">
+         <image>
+            <Image url="@../img/linea-diagonal.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="opacity_pane" opacity="0.55" prefHeight="700.0" prefWidth="700.0" styleClass="bgpanel" />
+      <Pane fx:id="cont_pane" prefHeight="700.0" prefWidth="700.0">
+         <children>
+            <VBox fx:id="confirmation_pane" alignment="CENTER" layoutX="78.0" prefHeight="130.0" prefWidth="545.0" styleClass="opane">
+               <children>
+                  <Text fx:id="msj" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="TEXT" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="btnNewGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="50.0" prefWidth="247.0" styleClass="btn1" text="JUGAR DE NUEVO">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnToMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toMain" prefHeight="50.0" prefWidth="247.0" styleClass="btn2" text="REGRESAR AL MENU">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></Pane>
+   </children>
+</AnchorPane>

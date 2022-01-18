@@ -71,23 +71,26 @@ public class VentanaEsperaController implements Initializable {
     @FXML
     private Button btnP2;
     @FXML
-
     private ImageView btn_back;
-    private boolean timer = false;
-    private GameMode gm;
     @FXML
     private Pane opacity_pane;
     @FXML
     private Pane cont_pane;
     @FXML
     private VBox confirmation_pane;
+    
+    
+    private boolean timer = false;
+    private GameMode gm;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        appearAnimation1(cont_pane);
+        returnAnimation(confirmation_pane);
+        appearAnimation2(opacity_pane);
     }
 
     public void setTimer(boolean timer) {
@@ -253,6 +256,32 @@ public class VentanaEsperaController implements Initializable {
         FadeTransition ft = new FadeTransition(Duration.millis(900), pane);
         ft.setFromValue(pane.getOpacity());
         ft.setToValue(0);
+        ft.setAutoReverse(false);
+        ft.play();
+    }
+    
+    private void returnAnimation(VBox vbox) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(700), vbox);
+        tt.setToY(277);
+        tt.setCycleCount(1);
+        tt.setAutoReverse(false);
+        tt.play();
+    }
+
+    private void appearAnimation1(Pane pane) {
+        FadeTransition ft = new FadeTransition(Duration.millis(900), pane);
+        ft.setFromValue(pane.getOpacity());
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.setAutoReverse(false);
+        ft.play();
+    }
+    
+    private void appearAnimation2(Pane pane) {
+        FadeTransition ft = new FadeTransition(Duration.millis(900), pane);
+        ft.setFromValue(pane.getOpacity());
+        ft.setFromValue(0);
+        ft.setToValue(0.55);
         ft.setAutoReverse(false);
         ft.play();
     }

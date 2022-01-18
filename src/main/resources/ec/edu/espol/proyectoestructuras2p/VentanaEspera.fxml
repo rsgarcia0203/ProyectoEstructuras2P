@@ -123,7 +123,7 @@
       <Pane fx:id="opacity_pane" opacity="0.55" prefHeight="700.0" prefWidth="700.0" styleClass="bgpanel" />
       <Pane fx:id="cont_pane" prefHeight="700.0" prefWidth="700.0">
          <children>
-            <VBox fx:id="confirmation_pane" alignment="CENTER" layoutX="163.0" layoutY="277.0" prefHeight="146.0" prefWidth="374.0" styleClass="opane">
+            <VBox fx:id="confirmation_pane" alignment="CENTER" layoutX="163.0" prefHeight="146.0" prefWidth="374.0" styleClass="opane">
                <children>
                   <Label text="¿QUIEN EMPIEZA LA PARTIDA?" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">

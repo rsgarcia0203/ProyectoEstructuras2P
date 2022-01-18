@@ -48,7 +48,6 @@ public class Tablero {
         initTablero();
         this.casillasLlenas = 0;
         this.casillasVacias = 0;
-        this.turno = true;
     }
 
     public Tablero(Tablero another) {
@@ -84,7 +83,7 @@ public class Tablero {
     public int getCasillasLlenas() {
         return casillasLlenas;
     }
-    
+
     public void setCasillasLlenas(int casillasLlenas) {
         this.casillasLlenas = casillasLlenas;
     }
@@ -207,8 +206,8 @@ public class Tablero {
         if ((this.table[0][2] == this.table[1][1]) && (this.table[1][1] == this.table[2][0]) && estaUsado2) {
             coincidencia = "diagonal2"; //izquierda a derecha
         }
-        return coincidencia;
 
+        return coincidencia;
     }
 
     public boolean columnCoincidence() {
@@ -344,18 +343,19 @@ public class Tablero {
     }
 
     public void actualizarTablero(int fila, int columna) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i == fila && j == columna) {
-                    if (turno) {
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                if (i == fila && j == columna && table[fila][columna] == '-') {
+                    if (turno == true) {
                         this.table[i][j] = 'X';
+                        this.turno = !this.turno;
                     } else {
                         this.table[i][j] = 'O';
+                        this.turno = !this.turno;
                     }
                 }
             }
         }
-        this.turno = !this.turno;
     }
 
     @Override

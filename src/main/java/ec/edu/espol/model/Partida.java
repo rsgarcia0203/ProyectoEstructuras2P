@@ -58,15 +58,17 @@ public abstract class Partida {
 
         if (startFirst == true) {
             jugadorUno = new Jugador(Type.PLAYER1);
-            jugadorDos = new Jugador(Type.CPU2);          
+            jugadorDos = new Jugador(Type.CPU2);  
+            tablero = new Tablero(startFirst);
         } else {
             jugadorUno = new Jugador(Type.CPU1);
             jugadorDos = new Jugador(Type.PLAYER2);
+            tablero = new Tablero(!startFirst);
         }
         
         gameMode = GameMode.PLAYERVSCPU;
         xtreme = xtreme_mode;
-        tablero = new Tablero(startFirst);
+        
     }
 
     public static void nuevaPartidaDosJugadores(boolean startFirst, boolean xtreme_mode) {

@@ -169,7 +169,7 @@
             <Image url="@../img/linea-diagonal.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diagonal2" fitHeight="540.0" fitWidth="417.0" layoutX="143.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="diagonal2" fitHeight="540.0" fitWidth="417.0" layoutX="143.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" visible="false">
          <image>
             <Image url="@../img/linea-diagonal.png" />
          </image>
@@ -209,7 +209,10 @@
          <children>
             <VBox fx:id="confirmation_pane" alignment="CENTER" layoutX="78.0" prefHeight="130.0" prefWidth="545.0" styleClass="opane">
                <children>
-                  <Text fx:id="msj" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="TEXT" />
+                  <Text fx:id="msj" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="TEXT">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Text>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
                         <Button fx:id="btnNewGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="50.0" prefWidth="247.0" styleClass="btn1" text="JUGAR DE NUEVO">

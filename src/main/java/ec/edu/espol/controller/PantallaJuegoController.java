@@ -165,21 +165,9 @@ public class PantallaJuegoController implements Initializable {
             timerPane.setDisable(true);
             timerPane.setVisible(false);
         }
-
-        if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
-            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
-            paneP2.setStyle("");
-
-            paneP2.setOpacity(0.5);
-            paneP1.setOpacity(1);
-        } else {
-            paneP2.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, white, #FF6D6D);");
-            paneP1.setStyle("");
-
-            paneP1.setOpacity(0.5);
-            paneP2.setOpacity(1);
-        }
-
+        
+        visualiceTurno();
+        
         if (Partida.gameMode != GameMode.CPUVSCPU) {
             if (verifyCPU() == true) {
                 jugadaCPU();
@@ -199,8 +187,42 @@ public class PantallaJuegoController implements Initializable {
 
     }
 
-    private void cambiarTurno() {
+    private void visualiceTurno() {
 
+        if (Partida.gameMode == GameMode.PLAYERVSCPU) {
+            if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.PLAYER2) {
+                paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
+                paneP2.setStyle("");
+
+                paneP2.setOpacity(0.5);
+                paneP1.setOpacity(1);
+            } else {
+                paneP2.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, white, #FF6D6D);");
+                paneP1.setStyle("");
+
+                paneP1.setOpacity(0.5);
+                paneP2.setOpacity(1);
+            }
+        } else {
+            if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
+                paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
+                paneP2.setStyle("");
+
+                paneP2.setOpacity(0.5);
+                paneP1.setOpacity(1);
+            } else {
+                paneP2.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, white, #FF6D6D);");
+                paneP1.setStyle("");
+
+                paneP1.setOpacity(0.5);
+                paneP2.setOpacity(1);
+            }
+        }
+
+    }
+
+    private void cambiarTurno() {
+        endGame();
         //Solo realiza cambio de turno cuando se ha realizado la jugada
         if (jugadorActual == Partida.jugadorUno) {
             jugadorActual = Partida.jugadorDos;
@@ -209,23 +231,10 @@ public class PantallaJuegoController implements Initializable {
         }
 
         segundos = 11;
-
-        if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
-            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
-            paneP2.setStyle("");
-
-            paneP2.setOpacity(0.5);
-            paneP1.setOpacity(1);
-        } else {
-            paneP2.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, white, #FF6D6D);");
-            paneP1.setStyle("");
-
-            paneP1.setOpacity(0.5);
-            paneP2.setOpacity(1);
-        }
+        visualiceTurno();
 
         if (Partida.gameMode != GameMode.CPUVSCPU) {
-            if (verifyCPU() == true) {
+            if (!Partida.tablero.isEnd() && verifyCPU() == true) {
                 jugadaCPU();
             }
         } else {
@@ -275,36 +284,36 @@ public class PantallaJuegoController implements Initializable {
         }
 
     }
-    
-    private void visualiceDiagonal(Tablero tablero){
-        
-        if (tablero.coincidence().equals("fila0")){
+
+    private void visualiceDiagonal(Tablero tablero) {
+
+        if (tablero.coincidence().equals("fila0")) {
             horizontal1.setVisible(true);
             coincidenceAnimation(horizontal1);
-        } else if (tablero.coincidence().equals("fila1")){
+        } else if (tablero.coincidence().equals("fila1")) {
             horizontal2.setVisible(true);
             coincidenceAnimation(horizontal2);
-        } else if (tablero.coincidence().equals("fila2")){
+        } else if (tablero.coincidence().equals("fila2")) {
             horizontal3.setVisible(true);
             coincidenceAnimation(horizontal3);
-        } else if (tablero.coincidence().equals("columna0")){
+        } else if (tablero.coincidence().equals("columna0")) {
             vertical1.setVisible(true);
             coincidenceAnimation(vertical1);
-        } else if (tablero.coincidence().equals("columna1")){
+        } else if (tablero.coincidence().equals("columna1")) {
             vertical2.setVisible(true);
             coincidenceAnimation(vertical2);
-        } else if (tablero.coincidence().equals("columna2")){
+        } else if (tablero.coincidence().equals("columna2")) {
             vertical3.setVisible(true);
             coincidenceAnimation(vertical3);
-        } else if (tablero.coincidence().equals("diagonal1")){
+        } else if (tablero.coincidence().equals("diagonal1")) {
             diagonal2.setVisible(true);
-            coincidenceAnimation(diagonal1);
-        } else if (tablero.coincidence().equals("diagonal2")){
-            diagonal1.setVisible(true);
             coincidenceAnimation(diagonal2);
+        } else if (tablero.coincidence().equals("diagonal2")) {
+            diagonal1.setVisible(true);
+            coincidenceAnimation(diagonal1);
         }
     }
-    
+
     private boolean verifyCPU() {
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
@@ -356,18 +365,19 @@ public class PantallaJuegoController implements Initializable {
             }
             Sonidos.lose();
             finalWindow();
-        }
-    }
+        } 
         
-    private void finalWindow(){
+    }
+
+    private void finalWindow() {
         Partida.tablero = this.tablero;
         Timeline tl = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarPantalla()));
-        tl.setCycleCount(1);
+        tl.setCycleCount(0);
         tl.setAutoReverse(false);
         tl.play();
     }
-    
-    private void actualizarPantalla(){
+
+    private void actualizarPantalla() {
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("VentanaFinal");
             App.setRoot(fxmlloader);
@@ -375,10 +385,9 @@ public class PantallaJuegoController implements Initializable {
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
-            ex.printStackTrace();
         }
     }
-    
+
     private void endGameCPU() {
         if (!tablero.coincidence().equals("")) {
             CPUtimer.stop();
@@ -483,7 +492,7 @@ public class PantallaJuegoController implements Initializable {
             ficha33.setImage(new Image(jugador.getToken()));
         }
     }
-    
+
     private void toMain() {
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
@@ -494,9 +503,12 @@ public class PantallaJuegoController implements Initializable {
             a.show();
         }
     }
-    
+
     @FXML
     private void back(MouseEvent event) {
+        if (Partida.gameMode == GameMode.CPUVSCPU) {
+            CPUtimer.stop();
+        }
         toMain();
     }
 
@@ -656,7 +668,7 @@ public class PantallaJuegoController implements Initializable {
         ft.setAutoReverse(false);
         ft.play();
     }
-    
+
     private void coincidenceAnimation(ImageView imv) {
         FadeTransition ft = new FadeTransition(Duration.millis(900), imv);
         ft.setFromValue(0.1);

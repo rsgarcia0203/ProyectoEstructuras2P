@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -153,13 +155,40 @@ public class VentanaFinalController implements Initializable {
             Sonidos.lose();
         } else {
             visualiceCoincidence(Partida.tablero);
+            
+            if (Partida.tablero.isTurno()){
+                if(Partida.gameMode == GameMode.PLAYERVSPLAYER){
+                    msj.setText("FELICIDADES, HA GANADO EL JUGADOR 1");
+                } else if(Partida.gameMode == GameMode.CPUVSCPU){
+                    msj.setText("FELICIDADES, HA GANADO EL CPU 1");
+                } else {
+                    if(Partida.jugadorUno.getType() == Type.PLAYER1){
+                        msj.setText("FELICIDADES, HAS GANADO!!");
+                    } else {
+                        msj.setText("BIEN JUGADO, INTENTALO DE NUEVO");
+                    }
+                }
+            } else {
+                if(Partida.gameMode == GameMode.PLAYERVSPLAYER){
+                    msj.setText("FELICIDADES, HA GANADO EL JUGADOR 2");
+                } else if(Partida.gameMode == GameMode.CPUVSCPU){
+                    msj.setText("FELICIDADES, HA GANADO EL CPU 2");
+                } else {
+                    if(Partida.jugadorDos.getType() == Type.PLAYER2){
+                        msj.setText("FELICIDADES, HAS GANADO!!");
+                    } else {
+                        msj.setText("BIEN JUGADO, INTENTALO DE NUEVO");
+                    }
+                }
+
+            }
         }
 
         appearAnimation2(opacity_pane);
         appearAnimation1(cont_pane);
         returnAnimation(confirmation_pane);
     }
-
+    
     private void visualiceTable(Tablero tablero) {
 
         for (int i = 0; i < tablero.getTable().length; i++) {
@@ -233,6 +262,7 @@ public class VentanaFinalController implements Initializable {
 
     @FXML
     private void toMain(MouseEvent event) {
+        returnAnimation();
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
             App.setRoot(fxmlloader);
@@ -241,6 +271,16 @@ public class VentanaFinalController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
         }
+    }
+    
+    private void returnAnimation(){
+        moveAnimation(confirmation_pane);
+        disappearAnimation(cont_pane);
+        disappearAnimation(opacity_pane);
+        Timeline tl = new Timeline(new KeyFrame(Duration.seconds(1)));
+        tl.setCycleCount(1);
+        tl.setAutoReverse(false);
+        tl.play();
     }
 
     private void moveAnimation(VBox vbox) {
@@ -287,6 +327,7 @@ public class VentanaFinalController implements Initializable {
 
     @FXML
     private void newGame(MouseEvent event) {
+        returnAnimation();
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("VentanaEspera");
             App.setRoot(fxmlloader);

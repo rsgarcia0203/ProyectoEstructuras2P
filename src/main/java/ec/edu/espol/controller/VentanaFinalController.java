@@ -137,7 +137,7 @@ public class VentanaFinalController implements Initializable {
             P2name.setText(Tablero.jugador2);
         }
 
-        if (Partida.tablero.isTurno()) {
+        if (!Partida.tablero.isTurno()) {
             paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
             paneP2.setStyle("");
 
@@ -241,6 +241,7 @@ public class VentanaFinalController implements Initializable {
     @FXML
     private void toMain(MouseEvent event) {
         returnAnimation();
+        Partida.xtreme = false;
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
             App.setRoot(fxmlloader);

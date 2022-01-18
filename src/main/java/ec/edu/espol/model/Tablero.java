@@ -51,7 +51,6 @@ public class Tablero {
         initTablero();
         this.casillasLlenas = 0;
         this.casillasVacias = 0;
-        this.turno = true;
     }
 
     public Tablero(Tablero another) {

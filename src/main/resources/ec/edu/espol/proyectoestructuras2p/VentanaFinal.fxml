@@ -126,7 +126,7 @@
                      <children>
                         <Text fx:id="P1name" fill="#0d9e00" strokeType="OUTSIDE" strokeWidth="0.0" text="JUGADOR 1">
                            <font>
-                              <Font name="Bauhaus 93" size="38.0" />
+                              <Font name="Bauhaus 93" size="32.0" />
                            </font>
                         </Text>
                      </children>
@@ -155,7 +155,7 @@
                      <children>
                         <Text fx:id="P2name" fill="#dd0000" strokeType="OUTSIDE" strokeWidth="0.0" text="CPU">
                            <font>
-                              <Font name="Bauhaus 93" size="38.0" />
+                              <Font name="Bauhaus 93" size="32.0" />
                            </font>
                         </Text>
                      </children>

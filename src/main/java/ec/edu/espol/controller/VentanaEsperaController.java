@@ -106,10 +106,10 @@ public class VentanaEsperaController implements Initializable {
         }
 
         if (gm == GameMode.PLAYERVSPLAYER) {
-            btnP1.setPrefSize(160, 50);
-            btnP2.setPrefSize(160, 50);
-            btnP1.setText("JUGADOR 1");
-            btnP2.setText("JUGADOR 2");
+            btnP1.setPrefSize(62, 62);
+            btnP2.setPrefSize(62, 62);
+            btnP1.setText("X");
+            btnP2.setText("O");
         }
 
     }
@@ -134,7 +134,7 @@ public class VentanaEsperaController implements Initializable {
         }
 
         if (btnP2.isHover()) {
-            this.setImages("ec/edu/espol/img/clear.png");
+            this.setImages("ec/edu/espol/img/circle.png");
         }
 
         if (btn_back.isHover()) {

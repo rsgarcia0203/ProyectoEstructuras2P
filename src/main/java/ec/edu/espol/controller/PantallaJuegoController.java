@@ -15,7 +15,6 @@
  */
 package ec.edu.espol.controller;
 
-import TDA.Tree;
 import ec.edu.espol.model.GameMode;
 import ec.edu.espol.model.Jugador;
 import ec.edu.espol.model.Partida;
@@ -33,6 +32,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -165,11 +165,11 @@ public class PantallaJuegoController implements Initializable {
             timerPane.setDisable(true);
             timerPane.setVisible(false);
         }
-        
+
         if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
             paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
             paneP2.setStyle("");
-        
+
             paneP2.setOpacity(0.5);
             paneP1.setOpacity(1);
         } else {
@@ -186,29 +186,34 @@ public class PantallaJuegoController implements Initializable {
             }
         } else {
             jugadaCPU(3);
-            pane1.setDisable(true);
-            pane2.setDisable(true);
-            pane3.setDisable(true);
-            pane4.setDisable(true);
-            pane5.setDisable(true);
-            pane6.setDisable(true);
-            pane7.setDisable(true);
-            pane8.setDisable(true);
-            pane9.setDisable(true);
+            disableTable();
         }
 
     }
 
+    private void disableTable() {
+        pane1.setDisable(true);
+        pane2.setDisable(true);
+        pane3.setDisable(true);
+        pane4.setDisable(true);
+        pane5.setDisable(true);
+        pane6.setDisable(true);
+        pane7.setDisable(true);
+        pane8.setDisable(true);
+        pane9.setDisable(true);
+    }
+
     private void cambiarTurno() {
 
-        //Solo realiza cambio de turno cuando se ha realizado la jugada
-        if (jugadorActual == Partida.jugadorUno) {
-            jugadorActual = Partida.jugadorDos;
-        } else if (jugadorActual == Partida.jugadorDos) {
-            jugadorActual = Partida.jugadorUno;
-        }
+        if (tablero.coincidence().equals("") || Tablero.resultado.equals("")) {
+            //Solo realiza cambio de turno cuando se ha realizado la jugada
+            if (jugadorActual == Partida.jugadorUno) {
+                jugadorActual = Partida.jugadorDos;
+            } else if (jugadorActual == Partida.jugadorDos) {
+                jugadorActual = Partida.jugadorUno;
+            }
 
-        segundos = 11;
+            segundos = 11;
 
             if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
                 paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
@@ -224,34 +229,40 @@ public class PantallaJuegoController implements Initializable {
                 paneP2.setOpacity(1);
             }
 
-        if (Partida.gameMode != GameMode.CPUVSCPU) {
-            if (verifyCPU() == true) {
-                jugadaCPU();
+            if (Partida.gameMode != GameMode.CPUVSCPU) {
+                if (verifyCPU() == true) {
+                    //disableTable();
+                    Timeline tl = new Timeline(new KeyFrame(Duration.seconds(2), e -> jugadaCPU()));
+                    tl.setCycleCount(1);
+                    tl.play();
+                }
+            } else {
+                endGameCPU();
+                jugadaCPU(3);
             }
-        } else {
-            endGameCPU();
-            jugadaCPU(3);
         }
 
     }
 
     private void jugadaCPU() {
-        try {
-            Tablero bestPlay = Partida.mejorJugada(tablero);
-            int[] pos = bestPlay.getUltimaPosicion();
-            visualiceToken(pos[0], pos[1], jugadorActual);
-            this.tablero.actualizarTablero(pos[0], pos[1]);
-            endGame();
-            cambiarTurno();
+        if (tablero.coincidence().equals("")) {
+            try {
+                Tablero bestPlay = Partida.mejorJugada(tablero);
+                int[] pos = bestPlay.getUltimaPosicion();
+                visualiceToken(pos[0], pos[1], jugadorActual);
+                this.tablero.actualizarTablero(pos[0], pos[1]);
+                endGame();
+                cambiarTurno();
 
-        } catch (NullPointerException ex) {
+            } catch (NullPointerException ex) {
 
+            }
         }
     }
 
     private void jugadaCPU(int time) {
         CPUtime = time;
-        CPUtimer = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> actualizarTimerCPU()));
+        CPUtimer = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarTimerCPU()));
         CPUtimer.setCycleCount(Timeline.INDEFINITE);
         CPUtimer.play();
     }
@@ -299,7 +310,7 @@ public class PantallaJuegoController implements Initializable {
         } else if (tablero.coincidence().equals("diagonal1")) {
             diagonal2.setVisible(true);
             coincidenceAnimation(diagonal1);
-        } else if (tablero.coincidence().equals("diagonal2")){
+        } else if (tablero.coincidence().equals("diagonal2")) {
             diagonal1.setVisible(true);
             coincidenceAnimation(diagonal2);
         }
@@ -356,8 +367,8 @@ public class PantallaJuegoController implements Initializable {
             }
             Sonidos.lose();
             finalWindow();
-        } 
-        
+        }
+
     }
 
     private void finalWindow() {
@@ -368,7 +379,7 @@ public class PantallaJuegoController implements Initializable {
         tl.play();
     }
 
-    private void actualizarPantalla(){
+    private void actualizarPantalla() {
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("VentanaFinal");
             App.setRoot(fxmlloader);
@@ -383,11 +394,11 @@ public class PantallaJuegoController implements Initializable {
         if (!tablero.coincidence().equals("")) {
             CPUtimer.stop();
             Sonidos.win();
-            toMain();
+            finalWindow();
         } else if (tablero.isFull()) {
             CPUtimer.stop();
             Sonidos.lose();
-            toMain();
+            finalWindow();
         }
 
     }
@@ -484,20 +495,31 @@ public class PantallaJuegoController implements Initializable {
         }
     }
 
-    private void toMain() {
+    @FXML
+    private void back(MouseEvent event) {
+        
         try {
-            FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
-            App.setRoot(fxmlloader);
-            Sonidos.back();
+            if(CPUtimer != null){
+                CPUtimer.stop();
+            }
+            
+            if(timer != null){
+                timer.stop();
+            }
+            
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "¿Está seguro de regresar a la pantalla principal?, se perderán todos los datos de la partida actual.");
+            a.setTitle("TIC-TAC-TOE");
+            a.setHeaderText("Confirmación de salida");
+            Optional<ButtonType> resultado = a.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+                FXMLLoader fxmlloader = App.loadFXMLoader("pantallaprincipal");
+                App.setRoot(fxmlloader);
+                Sonidos.back();
+            }
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Error al cargar la ventana.");
             a.show();
         }
-    }
-
-    @FXML
-    private void back(MouseEvent event) {
-        toMain();
     }
 
     @FXML
@@ -562,9 +584,19 @@ public class PantallaJuegoController implements Initializable {
     @FXML
     private void mouseHover(MouseEvent event) {
 
-        if (this.jugadorActual.getType() != Type.PLAYER1 || this.jugadorActual.getType() != Type.PLAYER2) {
+        if (this.jugadorActual.getType() == Type.PLAYER1 || this.jugadorActual.getType() == Type.PLAYER2) {
             this.setImagePlayer(jugadorActual);
             Sonidos.hover();
+        } else {
+            pane1.setCursor(Cursor.DEFAULT);
+            pane2.setCursor(Cursor.DEFAULT);
+            pane3.setCursor(Cursor.DEFAULT);
+            pane4.setCursor(Cursor.DEFAULT);
+            pane5.setCursor(Cursor.DEFAULT);
+            pane6.setCursor(Cursor.DEFAULT);
+            pane7.setCursor(Cursor.DEFAULT);
+            pane8.setCursor(Cursor.DEFAULT);
+            pane9.setCursor(Cursor.DEFAULT);
         }
 
     }

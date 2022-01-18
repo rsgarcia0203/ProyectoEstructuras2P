@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/pantallajuego.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallaJuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/pantallajuego.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallaJuegoController">
    <left>
       <VBox prefHeight="279.0" prefWidth="68.0" styleClass="border" BorderPane.alignment="CENTER" />
    </left>
@@ -189,7 +189,7 @@
                   </Pane>
                </children>
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="DEFAULT" />
                </cursor>
             </GridPane>
             <ImageView fx:id="diagonal1" fitHeight="540.0" fitWidth="417.0" layoutX="75.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" visible="false">

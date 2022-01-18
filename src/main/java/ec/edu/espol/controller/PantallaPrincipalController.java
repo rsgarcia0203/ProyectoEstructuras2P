@@ -18,6 +18,7 @@ package ec.edu.espol.controller;
 import ec.edu.espol.model.GameMode;
 import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
+import ec.edu.espol.model.Tablero;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +55,7 @@ public class PantallaPrincipalController implements Initializable{
     private ImageView gameMode;
 
     public static GameMode gm;
-    private boolean timer;
+    private boolean timer = false;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -215,7 +216,8 @@ public class PantallaPrincipalController implements Initializable{
 
         if (gm == GameMode.CPUVSCPU) {
             Partida.nuevaPartidaDosCPU();
-
+            Tablero.jugador1 = "CPU 1";
+            Tablero.jugador2 = "CPU 2";
             try {
                 FXMLLoader fxmlloader = App.loadFXMLoader("PantallaJuego");
                 App.setRoot(fxmlloader);

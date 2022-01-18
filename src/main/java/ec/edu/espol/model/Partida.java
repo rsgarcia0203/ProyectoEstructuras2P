@@ -59,14 +59,16 @@ public abstract class Partida {
         if (startFirst == true) {
             jugadorUno = new Jugador(Type.PLAYER1);
             jugadorDos = new Jugador(Type.CPU2);  
+            tablero = new Tablero(startFirst);
         } else {
             jugadorUno = new Jugador(Type.CPU1);
             jugadorDos = new Jugador(Type.PLAYER2);
+            tablero = new Tablero(!startFirst);
         }
         
         gameMode = GameMode.PLAYERVSCPU;
         xtreme = xtreme_mode;
-        tablero = new Tablero(startFirst);
+        
     }
 
     public static void nuevaPartidaDosJugadores(boolean startFirst, boolean xtreme_mode) {
@@ -75,8 +77,8 @@ public abstract class Partida {
             jugadorUno = new Jugador(Type.PLAYER1);
             jugadorDos = new Jugador(Type.PLAYER2);
         } else {
-            jugadorUno = new Jugador(Type.PLAYER1);
-            jugadorDos = new Jugador(Type.PLAYER2);
+            jugadorUno = new Jugador(Type.PLAYER2);
+            jugadorDos = new Jugador(Type.PLAYER1);
         }
         
         gameMode = GameMode.PLAYERVSPLAYER;
@@ -92,13 +94,14 @@ public abstract class Partida {
         if(turno == 0){
             jugadorUno = new Jugador(Type.CPU1);
             jugadorDos = new Jugador(Type.CPU2);
+            tablero = new Tablero(true);
         } else {
             jugadorUno = new Jugador(Type.CPU2);
             jugadorDos = new Jugador(Type.CPU1);  
+            tablero = new Tablero(false);
         }
         
-        gameMode = GameMode.CPUVSCPU;
-        tablero = new Tablero(true);
+        gameMode = GameMode.CPUVSCPU;        
     }
     
     //se generan los hijos de un tablero

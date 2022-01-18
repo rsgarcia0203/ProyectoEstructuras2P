@@ -32,6 +32,9 @@ public class Tablero {
     private int casillasLlenas;
     private int utilidad;
     private int[] ultimaPosicion;
+    public static String jugador1 = "";
+    public static String jugador2 = "";
+    public static String resultado = "EMPATE";
 
     public Tablero() {
         this.table = new char[3][3];
@@ -48,6 +51,7 @@ public class Tablero {
         initTablero();
         this.casillasLlenas = 0;
         this.casillasVacias = 0;
+        this.turno = true;
     }
 
     public Tablero(Tablero another) {
@@ -181,11 +185,34 @@ public class Tablero {
 
     //retorna un string en donde hay coincidencia ej: fila1, diagonal1
     public String coincidence() {
+        resultado = "EMPATE";
         String coincidencia = "";
 
         for (int i = 0; i < 3; i++) {
             boolean estaUsado = (this.table[i][0] != '-') && (this.table[i][1] != '-') && (this.table[i][2] != '-');
             if ((this.table[i][0] == this.table[i][1]) && (this.table[i][1] == this.table[i][2]) && estaUsado) {
+                if (this.table[i][0] == 'X') {
+                    if (jugador1.equals("JUGADOR")) {
+                        resultado = "¡GANASTE!";
+                    } else if (jugador1.equals("CPU")) {
+                        resultado = "PERDISTE";
+                    } else if (jugador1.equals("JUGADOR 1: X")) {
+                        resultado = "GANO JUGADOR 1: X";
+                    } else if (jugador1.equals("JUGADOR 2: X")) {
+                        resultado = "GANO JUGADOR 2: X";
+                    }
+                } else if (this.table[i][0] == 'O') {
+                    if (jugador2.equals("JUGADOR")) {
+                        resultado = "¡GANASTE!";
+                    } else if (jugador2.equals("CPU")) {
+                        resultado = "PERDISTE";
+                    } else if (jugador2.equals("JUGADOR 1: O")) {
+                        resultado = "GANO JUGADOR 1: O";
+                    } else if (jugador2.equals("JUGADOR 2: O")) {
+                        resultado = "GANO JUGADOR 2: O";
+                    }
+
+                }
                 coincidencia = "fila" + String.valueOf(i);
             }
         }
@@ -193,21 +220,84 @@ public class Tablero {
         for (int j = 0; j < 3; j++) {
             boolean estaUsado = (this.table[0][j] != '-') && (this.table[1][j] != '-') && (this.table[2][j] != '-');
             if ((this.table[0][j] == this.table[1][j]) && (this.table[1][j] == this.table[2][j]) && estaUsado) {
+                if (this.table[0][j] == 'X') {
+                    if (jugador1.equals("JUGADOR")) {
+                        resultado = "¡GANASTE!";
+                    } else if (jugador1.equals("CPU")) {
+                        resultado = "PERDISTE";
+                    } else if (jugador1.equals("JUGADOR 1: X")) {
+                        resultado = "GANO JUGADOR 1: X";
+                    } else if (jugador1.equals("JUGADOR 2: X")) {
+                        resultado = "GANO JUGADOR 2: X";
+                    }
+                } else if (this.table[0][j] == 'O') {
+                    if (jugador2.equals("JUGADOR")) {
+                        resultado = "¡GANASTE!";
+                    } else if (jugador2.equals("CPU")) {
+                        resultado = "PERDISTE";
+                    } else if (jugador2.equals("JUGADOR 1: O")) {
+                        resultado = "GANO JUGADOR 1: O";
+                    } else if (jugador2.equals("JUGADOR 2: O")) {
+                        resultado = "GANO JUGADOR 2: O";
+                    }
+                }
                 coincidencia = "columna" + String.valueOf(j);
             }
         }
 
         boolean estaUsado = (this.table[0][0] != '-') && (this.table[1][1] != '-') && (this.table[2][2] != '-');
         if ((this.table[0][0] == this.table[1][1]) && (this.table[1][1] == this.table[2][2]) && estaUsado) {
+            if (this.table[0][0] == 'X') {
+                if (jugador1.equals("JUGADOR")) {
+                    resultado = "¡GANASTE!";
+                } else if (jugador1.equals("CPU")) {
+                    resultado = "PERDISTE";
+                } else if (jugador1.equals("JUGADOR 1: X")) {
+                    resultado = "GANO JUGADOR 1: X";
+                } else if (jugador1.equals("JUGADOR 2: X")) {
+                    resultado = "GANO JUGADOR 2: X";
+                }
+            } else if (this.table[0][0] == 'O') {
+                if (jugador2.equals("JUGADOR")) {
+                    resultado = "¡GANASTE!";
+                } else if (jugador2.equals("CPU")) {
+                    resultado = "PERDISTE";
+                } else if (jugador2.equals("JUGADOR 1: O")) {
+                    resultado = "GANO JUGADOR 1: O";
+                } else if (jugador2.equals("JUGADOR 2: O")) {
+                    resultado = "GANO JUGADOR 2: O";
+                }
+            }
             coincidencia = "diagonal1"; //izquierda a derecha
         }
 
         boolean estaUsado2 = (this.table[0][2] != '-') && (this.table[1][1] != '-') && (this.table[2][0] != '-');
         if ((this.table[0][2] == this.table[1][1]) && (this.table[1][1] == this.table[2][0]) && estaUsado2) {
+            if (this.table[0][2] == 'X') {
+                if (jugador1.equals("JUGADOR")) {
+                    resultado = "¡GANASTE!";
+                } else if (jugador1.equals("CPU")) {
+                    resultado = "PERDISTE";
+                } else if (jugador1.equals("JUGADOR 1: X")) {
+                    resultado = "GANO JUGADOR 1: X";
+                } else if (jugador1.equals("JUGADOR 2: X")) {
+                    resultado = "GANO JUGADOR 2: X";
+                }
+            } else if (this.table[0][2] == 'O') {
+                if (jugador2.equals("JUGADOR")) {
+                    resultado = "¡GANASTE!";
+                } else if (jugador2.equals("CPU")) {
+                    resultado = "PERDISTE";
+                } else if (jugador2.equals("JUGADOR 1: O")) {
+                    resultado = "GANO JUGADOR 1: O";
+                } else if (jugador2.equals("JUGADOR 2: O")) {
+                    resultado = "GANO JUGADOR 2: O";
+                }
+            }
             coincidencia = "diagonal2"; //izquierda a derecha
         }
-
         return coincidencia;
+
     }
 
     public boolean columnCoincidence() {
@@ -343,19 +433,18 @@ public class Tablero {
     }
 
     public void actualizarTablero(int fila, int columna) {
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
-                if (i == fila && j == columna && table[fila][columna] == '-') {
-                    if (turno == true) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i == fila && j == columna) {
+                    if (turno) {
                         this.table[i][j] = 'X';
-                        this.turno = !this.turno;
                     } else {
                         this.table[i][j] = 'O';
-                        this.turno = !this.turno;
                     }
                 }
             }
         }
+        this.turno = !this.turno;
     }
 
     @Override

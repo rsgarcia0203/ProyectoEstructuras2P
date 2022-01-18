@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/pantallajuego.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallaJuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" stylesheets="@../styles/pantallajuego.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallaJuegoController">
    <left>
       <VBox prefHeight="279.0" prefWidth="68.0" styleClass="border" BorderPane.alignment="CENTER" />
    </left>
@@ -30,7 +30,7 @@
                <children>
                   <Text fx:id="P1name" fill="#0d9e00" strokeType="OUTSIDE" strokeWidth="0.0" text="JUGADOR 1">
                      <font>
-                        <Font name="Bauhaus 93" size="38.0" />
+                        <Font name="Bauhaus 93" size="32.0" />
                      </font>
                   </Text>
                </children>
@@ -59,7 +59,7 @@
                <children>
                   <Text fx:id="P2name" fill="#dd0000" strokeType="OUTSIDE" strokeWidth="0.0" text="CPU">
                      <font>
-                        <Font name="Bauhaus 93" size="38.0" />
+                        <Font name="Bauhaus 93" size="32.0" />
                      </font>
                   </Text>
                </children>

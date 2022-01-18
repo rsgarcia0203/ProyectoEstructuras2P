@@ -122,18 +122,19 @@ public class VentanaFinalController implements Initializable {
         visualiceTable(Partida.tablero);
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
-            P1name.setText("JUGADOR");
-            P2name.setText("CPU");
+            P1name.setText(Tablero.jugador1);
+            P2name.setText(Tablero.jugador2);
         }
 
         if (Partida.gameMode == GameMode.PLAYERVSPLAYER) {
-            P1name.setText("JUGADOR 1");
-            P2name.setText("JUGADOR 2");
+            P1name.setText(Tablero.jugador1);
+            P2name.setText(Tablero.jugador2);
         }
 
         if (Partida.gameMode == GameMode.CPUVSCPU) {
-            P1name.setText("CPU 1");
-            P2name.setText("CPU 2");
+
+            P1name.setText(Tablero.jugador1);
+            P2name.setText(Tablero.jugador2);
         }
 
         if (Partida.tablero.isTurno()) {
@@ -150,45 +151,22 @@ public class VentanaFinalController implements Initializable {
             paneP2.setOpacity(1);
         }
 
-        if (Partida.tablero.isFull() && Partida.tablero.coincidence().equals("")) {
-            msj.setText("EMPATE");
-            Sonidos.lose();
-        } else {
-            visualiceCoincidence(Partida.tablero);
-            
-            if (Partida.tablero.isTurno()){
-                if(Partida.gameMode == GameMode.PLAYERVSPLAYER){
-                    msj.setText("FELICIDADES, HA GANADO EL JUGADOR 1");
-                } else if(Partida.gameMode == GameMode.CPUVSCPU){
-                    msj.setText("FELICIDADES, HA GANADO EL CPU 1");
-                } else {
-                    if(Partida.jugadorUno.getType() == Type.PLAYER1){
-                        msj.setText("FELICIDADES, HAS GANADO!!");
-                    } else {
-                        msj.setText("BIEN JUGADO, INTENTALO DE NUEVO");
-                    }
-                }
-            } else {
-                if(Partida.gameMode == GameMode.PLAYERVSPLAYER){
-                    msj.setText("FELICIDADES, HA GANADO EL JUGADOR 2");
-                } else if(Partida.gameMode == GameMode.CPUVSCPU){
-                    msj.setText("FELICIDADES, HA GANADO EL CPU 2");
-                } else {
-                    if(Partida.jugadorDos.getType() == Type.PLAYER2){
-                        msj.setText("FELICIDADES, HAS GANADO!!");
-                    } else {
-                        msj.setText("BIEN JUGADO, INTENTALO DE NUEVO");
-                    }
-                }
-
+        if (Partida.tablero.coincidence().length() != 0) {
+            if(Tablero.resultado.equals("PERDISTE")){
+                Sonidos.lose();
             }
-        }
+            msj.setText(Tablero.resultado);
+            visualiceCoincidence(Partida.tablero);
 
+        } else{
+            Sonidos.lose();
+            msj.setText(Tablero.resultado);
+        }
         appearAnimation2(opacity_pane);
         appearAnimation1(cont_pane);
         returnAnimation(confirmation_pane);
     }
-    
+
     private void visualiceTable(Tablero tablero) {
 
         for (int i = 0; i < tablero.getTable().length; i++) {
@@ -272,8 +250,8 @@ public class VentanaFinalController implements Initializable {
             a.show();
         }
     }
-    
-    private void returnAnimation(){
+
+    private void returnAnimation() {
         moveAnimation(confirmation_pane);
         disappearAnimation(cont_pane);
         disappearAnimation(opacity_pane);

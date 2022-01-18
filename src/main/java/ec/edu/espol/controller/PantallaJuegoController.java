@@ -137,13 +137,13 @@ public class PantallaJuegoController implements Initializable {
         this.CPUtime = 3;
 
         if (Partida.gameMode == GameMode.PLAYERVSCPU) {
-            P1name.setText("JUGADOR");
-            P2name.setText("CPU");
+            P1name.setText(Tablero.jugador1);
+            P2name.setText(Tablero.jugador2);
         }
 
         if (Partida.gameMode == GameMode.PLAYERVSPLAYER) {
-            P1name.setText("JUGADOR 1");
-            P2name.setText("JUGADOR 2");
+            P1name.setText(Tablero.jugador1);
+            P2name.setText(Tablero.jugador2);
         }
 
         if (Partida.gameMode == GameMode.CPUVSCPU) {
@@ -166,8 +166,20 @@ public class PantallaJuegoController implements Initializable {
             timerPane.setVisible(false);
         }
         
-        visualiceTurno();
+        if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
+            paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
+            paneP2.setStyle("");
         
+            paneP2.setOpacity(0.5);
+            paneP1.setOpacity(1);
+        } else {
+            paneP2.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, white, #FF6D6D);");
+            paneP1.setStyle("");
+
+            paneP1.setOpacity(0.5);
+            paneP2.setOpacity(1);
+        }
+
         if (Partida.gameMode != GameMode.CPUVSCPU) {
             if (verifyCPU() == true) {
                 jugadaCPU();
@@ -187,23 +199,17 @@ public class PantallaJuegoController implements Initializable {
 
     }
 
-    private void visualiceTurno() {
+    private void cambiarTurno() {
 
-        if (Partida.gameMode == GameMode.PLAYERVSCPU) {
-            if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.PLAYER2) {
-                paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
-                paneP2.setStyle("");
+        //Solo realiza cambio de turno cuando se ha realizado la jugada
+        if (jugadorActual == Partida.jugadorUno) {
+            jugadorActual = Partida.jugadorDos;
+        } else if (jugadorActual == Partida.jugadorDos) {
+            jugadorActual = Partida.jugadorUno;
+        }
 
-                paneP2.setOpacity(0.5);
-                paneP1.setOpacity(1);
-            } else {
-                paneP2.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, white, #FF6D6D);");
-                paneP1.setStyle("");
+        segundos = 11;
 
-                paneP1.setOpacity(0.5);
-                paneP2.setOpacity(1);
-            }
-        } else {
             if (jugadorActual.getType() == Type.PLAYER1 || jugadorActual.getType() == Type.CPU1) {
                 paneP1.setStyle("-fx-background-color: linear-gradient(from 0% 50% to 100% 50%, #6bff5d, white);");
                 paneP2.setStyle("");
@@ -217,24 +223,9 @@ public class PantallaJuegoController implements Initializable {
                 paneP1.setOpacity(0.5);
                 paneP2.setOpacity(1);
             }
-        }
-
-    }
-
-    private void cambiarTurno() {
-        endGame();
-        //Solo realiza cambio de turno cuando se ha realizado la jugada
-        if (jugadorActual == Partida.jugadorUno) {
-            jugadorActual = Partida.jugadorDos;
-        } else if (jugadorActual == Partida.jugadorDos) {
-            jugadorActual = Partida.jugadorUno;
-        }
-
-        segundos = 11;
-        visualiceTurno();
 
         if (Partida.gameMode != GameMode.CPUVSCPU) {
-            if (!Partida.tablero.isEnd() && verifyCPU() == true) {
+            if (verifyCPU() == true) {
                 jugadaCPU();
             }
         } else {
@@ -260,7 +251,7 @@ public class PantallaJuegoController implements Initializable {
 
     private void jugadaCPU(int time) {
         CPUtime = time;
-        CPUtimer = new Timeline(new KeyFrame(Duration.seconds(2), e -> actualizarTimerCPU()));
+        CPUtimer = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> actualizarTimerCPU()));
         CPUtimer.setCycleCount(Timeline.INDEFINITE);
         CPUtimer.play();
     }
@@ -307,10 +298,10 @@ public class PantallaJuegoController implements Initializable {
             coincidenceAnimation(vertical3);
         } else if (tablero.coincidence().equals("diagonal1")) {
             diagonal2.setVisible(true);
-            coincidenceAnimation(diagonal2);
-        } else if (tablero.coincidence().equals("diagonal2")) {
-            diagonal1.setVisible(true);
             coincidenceAnimation(diagonal1);
+        } else if (tablero.coincidence().equals("diagonal2")){
+            diagonal1.setVisible(true);
+            coincidenceAnimation(diagonal2);
         }
     }
 
@@ -372,12 +363,12 @@ public class PantallaJuegoController implements Initializable {
     private void finalWindow() {
         Partida.tablero = this.tablero;
         Timeline tl = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarPantalla()));
-        tl.setCycleCount(0);
+        tl.setCycleCount(1);
         tl.setAutoReverse(false);
         tl.play();
     }
 
-    private void actualizarPantalla() {
+    private void actualizarPantalla(){
         try {
             FXMLLoader fxmlloader = App.loadFXMLoader("VentanaFinal");
             App.setRoot(fxmlloader);
@@ -506,9 +497,6 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private void back(MouseEvent event) {
-        if (Partida.gameMode == GameMode.CPUVSCPU) {
-            CPUtimer.stop();
-        }
         toMain();
     }
 

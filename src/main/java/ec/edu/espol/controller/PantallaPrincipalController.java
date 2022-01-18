@@ -53,7 +53,7 @@ public class PantallaPrincipalController implements Initializable{
     @FXML
     private ImageView gameMode;
 
-    private GameMode gm;
+    public static GameMode gm;
     private boolean timer;
     
     @Override

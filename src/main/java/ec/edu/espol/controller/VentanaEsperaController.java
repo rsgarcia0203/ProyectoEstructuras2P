@@ -18,6 +18,7 @@ package ec.edu.espol.controller;
 import ec.edu.espol.model.GameMode;
 import ec.edu.espol.model.Partida;
 import ec.edu.espol.model.Sonidos;
+import ec.edu.espol.model.Tablero;
 import ec.edu.espol.proyectoestructuras2p.App;
 import java.io.IOException;
 import java.net.URL;
@@ -78,8 +79,7 @@ public class VentanaEsperaController implements Initializable {
     private Pane cont_pane;
     @FXML
     private VBox confirmation_pane;
-    
-    
+
     private boolean timer = false;
     private GameMode gm;
 
@@ -134,7 +134,7 @@ public class VentanaEsperaController implements Initializable {
         }
 
         if (btnP2.isHover()) {
-            this.setImages("ec/edu/espol/img/circle.png");
+            this.setImages("ec/edu/espol/img/clear.png");
         }
 
         if (btn_back.isHover()) {
@@ -162,10 +162,24 @@ public class VentanaEsperaController implements Initializable {
     private void mousePressed(MouseEvent event) {
         if (btnP1.isPressed()) {
             btnP1.setEffect(new InnerShadow());
+            if (PantallaPrincipalController.gm == GameMode.PLAYERVSCPU) {
+                Tablero.jugador1 = "JUGADOR";
+                Tablero.jugador2 = "CPU";
+            } else if (PantallaPrincipalController.gm == GameMode.PLAYERVSPLAYER) {
+                Tablero.jugador1 = "JUGADOR 1: X";
+                Tablero.jugador2 = "JUGADOR 2: O";
+            } 
         }
 
         if (btnP2.isPressed()) {
             btnP2.setEffect(new InnerShadow());
+            if (PantallaPrincipalController.gm == GameMode.PLAYERVSCPU) {
+                Tablero.jugador1 = "CPU";
+                Tablero.jugador2 = "JUGADOR";
+            } else if (PantallaPrincipalController.gm == GameMode.PLAYERVSPLAYER) {
+                Tablero.jugador1 = "JUGADOR 2: X";
+                Tablero.jugador2 = "JUGADOR 1: O";
+            } 
         }
 
         if (btn_back.isPressed()) {
@@ -259,7 +273,7 @@ public class VentanaEsperaController implements Initializable {
         ft.setAutoReverse(false);
         ft.play();
     }
-    
+
     private void returnAnimation(VBox vbox) {
         TranslateTransition tt = new TranslateTransition(Duration.millis(700), vbox);
         tt.setToY(277);
@@ -276,7 +290,7 @@ public class VentanaEsperaController implements Initializable {
         ft.setAutoReverse(false);
         ft.play();
     }
-    
+
     private void appearAnimation2(Pane pane) {
         FadeTransition ft = new FadeTransition(Duration.millis(900), pane);
         ft.setFromValue(pane.getOpacity());
